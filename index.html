@@ -13,16 +13,1563 @@
   <!-- Font Awesome 6.5.2 Pro/Free Icon CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <!-- Custom User Panel Stylesheet -->
-  <link rel="stylesheet" href="Style.css">
-
   <!-- Firebase App & Realtime Database SDKs (Compat CDN) -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+  <style>
+    /* -------------------------------------------------------------
+       NF SMART TECH - ADVANCED USER PANEL STYLESHEET
+       Mobile-First Architecture & Native UI Feel
+    ------------------------------------------------------------- */
+    :root {
+      --primary-color: #0b1329;
+      --accent-color: #e11d48;
+      --accent-hover: #be123c;
+      --bg-color: #f8fafc;
+      --surface-color: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --danger-color: #ef4444;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 28px rgba(0,0,0,0.16);
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* FIX: Do NOT set font-family globally on * */
+    body, input, button, select, textarea {
+      font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.5;
+      font-size: 14px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .text-primary { color: #3b82f6 !important; }
+    .text-accent { color: var(--accent-color) !important; }
+    .d-none { display: none !important; }
+
+    /* -------------------------------------------------------------
+       ১. টপ অ্যানাউন্সমেন্ট মারকিউ বার (কমলা কালার)
+    ------------------------------------------------------------- */
+    .top-bar {
+      background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+      color: #ffffff;
+      padding: 7px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      z-index: 101;
+    }
+
+    .marquee-container {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .marquee-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marqueeScroll 20s linear infinite;
+    }
+
+    @keyframes marqueeScroll {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(-100%, 0); }
+    }
+
+    /* -------------------------------------------------------------
+       ২. হেডার ও নেভিগেশন
+    ------------------------------------------------------------- */
+    header {
+      background: var(--surface-color);
+      padding: 10px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .logo-area img {
+      height: 38px;
+      max-width: 130px;
+      object-fit: contain;
+    }
+
+    .logo-area span {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--primary-color);
+      letter-spacing: -0.3px;
+    }
+
+    .header-right-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .search-icon-btn, .hamburger-btn {
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 15px;
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .search-icon-btn:hover, .hamburger-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .hamburger-btn {
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .hamburger-btn span {
+      display: block;
+      width: 17px;
+      height: 2px;
+      background-color: var(--text-main);
+      border-radius: 2px;
+    }
+
+    /* সার্চ পপআপ ড্রপডাউন */
+    .search-popup-box {
+      position: fixed;
+      top: 68px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      width: 92%;
+      max-width: 460px;
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      padding: 12px;
+      display: none;
+      opacity: 0;
+      z-index: 3000;
+      transition: all 0.25s ease;
+    }
+
+    .search-popup-box.active {
+      display: block;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .search-input-wrap {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .search-inner-icon {
+      position: absolute;
+      left: 12px;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .search-popup-box input {
+      width: 100%;
+      padding: 10px 36px 10px 36px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-popup-box input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 10px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .search-suggestions-list {
+      max-height: 280px;
+      overflow-y: auto;
+      margin-top: 8px;
+    }
+
+    .suggestion-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px;
+      cursor: pointer;
+      border-bottom: 1px solid #f8fafc;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s ease;
+    }
+
+    .suggestion-row:hover { background: #f1f5f9; }
+
+    .suggestion-row img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    /* -------------------------------------------------------------
+       ৩. সাইড ড্রয়ার মেনু
+    ------------------------------------------------------------- */
+    .side-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 19, 41, 0.6);
+      backdrop-filter: blur(2px);
+      z-index: 3999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .side-menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -310px;
+      width: 290px;
+      height: 100%;
+      background: var(--surface-color);
+      box-shadow: -5px 0 25px rgba(0,0,0,0.18);
+      z-index: 4000;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-menu.active { right: 0; }
+
+    .side-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      font-size: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+    }
+
+    .side-menu-close {
+      cursor: pointer;
+      font-size: 26px;
+      color: var(--text-muted);
+    }
+
+    .side-menu-links {
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    .side-menu-links a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 4px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-bottom: 1px solid #f8fafc;
+      transition: color 0.15s;
+    }
+
+    .side-menu-links a:hover { color: #3b82f6; }
+
+    .side-menu-cat-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin: 14px 0 6px 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .side-menu-divider {
+      height: 1px;
+      background: var(--border-color);
+      margin: 12px 0;
+    }
+
+    .side-menu-footer {
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* -------------------------------------------------------------
+       ৪. ব্যানার স্লাইডার
+    ------------------------------------------------------------- */
+    .banner-container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 12px auto 6px auto;
+      padding: 0 15px;
+    }
+
+    .banner-slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 12px;
+      scroll-snap-type: x mandatory;
+      border-radius: var(--radius-md);
+      scroll-behavior: smooth;
+      box-shadow: var(--shadow-sm);
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .banner-slider::-webkit-scrollbar { display: none; }
+
+    .banner-slide {
+      min-width: 100%;
+      height: 175px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .banner-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .banner-slide-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+      color: #fff;
+    }
+
+    .banner-slide-title { font-size: 16px; font-weight: 700; }
+    .banner-slide-subtitle { font-size: 12px; opacity: 0.9; }
+
+    .banner-cta-badge {
+      align-self: flex-start;
+      margin-top: 6px;
+      background: var(--accent-color);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .slider-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .slider-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      transition: all 0.2s;
+    }
+
+    .slider-dot.active {
+      background: #3b82f6;
+      width: 18px;
+      border-radius: 6px;
+    }
+
+    @media (min-width: 768px) {
+      .banner-slide { height: 280px; }
+      .banner-slide-title { font-size: 22px; }
+    }
+
+    /* -------------------------------------------------------------
+       ৫. ক্যাটাগরি ও প্রোডাক্ট ক্যাটালগ
+    ------------------------------------------------------------- */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 12px 15px;
+      flex-grow: 1;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 14px 0 10px 0;
+      color: var(--primary-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .view-all-btn {
+      font-size: 12px;
+      font-weight: 600;
+      color: #3b82f6;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .view-all-btn:hover { text-decoration: underline; }
+
+    .category-scroll {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 6px;
+    }
+
+    .category-scroll::-webkit-scrollbar { height: 3px; }
+    .category-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+
+    .cat-card {
+      background: var(--surface-color);
+      min-width: 82px;
+      max-width: 90px;
+      padding: 8px 6px;
+      border-radius: var(--radius-sm);
+      text-align: center;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cat-card:hover, .cat-card.active {
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cat-thumb-img {
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 5px;
+    }
+
+    .cat-icon-fallback {
+      font-size: 22px;
+      line-height: 36px;
+      margin-bottom: 5px;
+    }
+
+    .cat-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (min-width: 600px) {
+      .product-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 860px) {
+      .product-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    }
+    @media (min-width: 1120px) {
+      .product-grid { grid-template-columns: repeat(5, 1fr); }
+    }
+
+    .product-card {
+      background: var(--surface-color);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .discount-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      background: var(--danger-color);
+      color: #fff;
+      font-size: 9.5px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    .stock-badge-out {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: #64748b;
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    .product-card-img-wrap {
+      width: 100%;
+      height: 140px;
+      background: #f1f5f9;
+      overflow: hidden;
+    }
+
+    .product-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .product-card-img-wrap img {
+      transform: scale(1.04);
+    }
+
+    .product-info {
+      padding: 10px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .product-category-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #3b82f6;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .product-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.35;
+      height: 34px;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      margin-bottom: 6px;
+    }
+
+    .price-box {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .product-price {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--accent-color);
+    }
+
+    .old-price {
+      font-size: 11px;
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    /* -------------------------------------------------------------
+       ৬. ডায়নামিক ভ্যারিয়েন্ট ও কালার এক্সট্রা প্রাইজ স্টাইল
+    ------------------------------------------------------------- */
+    .options-section {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      margin: 10px 0;
+    }
+
+    .option-group-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .variant-options-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .variant-chip {
+      padding: 6px 12px;
+      font-size: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+    }
+
+    .variant-chip .extra-price-tag {
+      background: #fee2e2;
+      color: var(--danger-color);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .variant-chip.selected {
+      border-color: var(--accent-color);
+      background: #fff1f2;
+      color: var(--accent-color);
+    }
+
+    .variant-chip.selected .extra-price-tag {
+      background: var(--accent-color);
+      color: #fff;
+    }
+
+    .price-breakdown-note {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin: 6px 0 10px 0;
+      border-left: 3px solid var(--accent-color);
+    }
+
+    /* -------------------------------------------------------------
+       ৭. ফ্লোটিং অ্যাকশন বাটনসমূহ
+    ------------------------------------------------------------- */
+    .floating-buttons-group {
+      position: fixed;
+      bottom: 24px;
+      right: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 3000;
+      align-items: center;
+    }
+
+    .floating-cart-btn, .floating-whatsapp {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.22);
+      cursor: pointer;
+      position: relative;
+      border: none;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      color: #ffffff !important;
+    }
+
+    .floating-cart-btn {
+      background: #f59e0b;
+    }
+
+    .floating-cart-btn i {
+      font-size: 21px;
+      color: #ffffff !important;
+    }
+
+    .floating-whatsapp {
+      background: #22c55e;
+    }
+
+    .floating-whatsapp i {
+      font-size: 27px;
+      color: #ffffff !important;
+    }
+
+    .floating-cart-btn:hover, .floating-whatsapp:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.28);
+    }
+
+    .cart-badge-count {
+      position: absolute;
+      top: -2px;
+      right: -2px;
+      background: #e11d48;
+      color: #ffffff;
+      font-size: 10px;
+      min-width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #ffffff;
+    }
+
+    /* -------------------------------------------------------------
+       ৮. কার্ট পপআপ
+    ------------------------------------------------------------- */
+    .cart-corner-popup {
+      display: none;
+      position: fixed;
+      top: 65px;
+      right: 15px;
+      width: 330px;
+      max-height: 85vh;
+      background: var(--surface-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      z-index: 3500;
+      padding: 14px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+    }
+
+    .cart-corner-popup.active {
+      display: block;
+      animation: fadeInDown 0.2s ease;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cart-corner-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .cart-corner-close {
+      cursor: pointer;
+      font-size: 20px;
+      color: var(--text-muted);
+    }
+
+    .cart-item-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f8fafc;
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .cart-item-row img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .qty-adjuster {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .qty-adjuster button {
+      width: 22px;
+      height: 22px;
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cart-remove-btn {
+      background: none;
+      border: none;
+      color: var(--danger-color);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* -------------------------------------------------------------
+       ৯. মোডাল উইন্ডো
+    ------------------------------------------------------------- */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 19, 41, 0.7);
+      backdrop-filter: blur(3px);
+      justify-content: center;
+      align-items: center;
+      z-index: 4500;
+      padding: 12px;
+    }
+
+    .modal-content {
+      background: var(--surface-color);
+      width: 100%;
+      max-width: 640px;
+      max-height: 92vh;
+      border-radius: var(--radius-md);
+      padding: 18px;
+      position: relative;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .close-modal {
+      position: fixed;
+      top: 14px;
+      right: 16px;
+      font-size: 22px;
+      cursor: pointer;
+      background: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: var(--shadow-md);
+      z-index: 4600;
+      border: none;
+      color: var(--text-main);
+    }
+
+    .detail-container-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .detail-image-slider {
+      display: flex;
+      overflow-x: auto;
+      gap: 10px;
+      scroll-snap-type: x mandatory;
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
+    }
+
+    .detail-image-slider::-webkit-scrollbar { height: 4px; }
+
+    .detail-img-item {
+      min-width: 100%;
+      height: 260px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      background: #f1f5f9;
+    }
+
+    .detail-img-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .detail-title-under-image {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .detail-price-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 8px 0 12px 0;
+    }
+
+    .detail-price {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--accent-color);
+    }
+
+    .detail-old-price {
+      font-size: 14px;
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .save-badge {
+      background: var(--danger-color);
+      color: #fff;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    .action-buttons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+
+    .action-btn {
+      padding: 11px 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: filter 0.2s;
+    }
+
+    .action-btn:hover { filter: brightness(0.95); }
+    .btn-cart { background: #f59e0b; color: #fff; }
+    .btn-order { background: #10b981; color: #fff; }
+    .btn-whatsapp { background: #22c55e; color: #fff; }
+    .btn-call { background: #3b82f6; color: #fff; }
+
+    .detail-description {
+      font-size: 13px;
+      color: #475569;
+      margin: 16px 0;
+      line-height: 1.6;
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+    }
+
+    .detail-description h3 {
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: var(--primary-color);
+    }
+
+    .horizontal-scroll-section {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 8px 0;
+    }
+
+    .horizontal-card {
+      min-width: 140px;
+      max-width: 140px;
+      background: #fff;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .horizontal-card img {
+      width: 100%;
+      height: 95px;
+      object-fit: cover;
+    }
+
+    .horizontal-card-info { padding: 6px 8px; }
+
+    /* -------------------------------------------------------------
+       ১০. চেকআউট ফর্ম স্টাইল
+    ------------------------------------------------------------- */
+    .checkout-summary {
+      background: #f8fafc;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      font-size: 13px;
+      border: 1px solid var(--border-color);
+    }
+
+    .checkout-summary p { margin-bottom: 5px; }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .coupon-input-group {
+      display: flex;
+      gap: 6px;
+      margin: 8px 0;
+    }
+
+    .coupon-input-group input {
+      flex-grow: 1;
+      text-transform: uppercase;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+    }
+
+    .btn-apply-coupon {
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 11px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      outline: none;
+      transition: all 0.2s ease;
+      background: #fff;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: #3b82f6;
+    }
+
+    .form-group input.error-input, .form-group select.error-input {
+      border-color: var(--danger-color) !important;
+      background-color: #fde8e8 !important;
+    }
+
+    .delivery-notice {
+      background: #ecfdf5;
+      color: #065f46;
+      padding: 9px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      text-align: center;
+      border: 1px solid #a7f3d0;
+    }
+
+    .submit-order-btn {
+      background: var(--danger-color);
+      color: #ffffff;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 14.5px;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .submit-order-btn:hover { background: #dc2626; }
+
+    .submit-order-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    /* -------------------------------------------------------------
+       ১১. প্রিমিয়াম অ্যাডমিন-কন্ট্রোলড ফুটার
+    ------------------------------------------------------------- */
+    .app-footer {
+      background: #080e1e;
+      color: #e2e8f0;
+      margin-top: auto;
+      border-top: 1px solid #1e293b;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 35px 20px 25px 20px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .footer-container {
+        grid-template-columns: 1.3fr 1.4fr 1fr;
+        gap: 30px;
+      }
+    }
+
+    .footer-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand-icon {
+      font-size: 22px;
+      color: #3b82f6;
+    }
+
+    .footer-brand h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .footer-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #94a3b8;
+      margin-bottom: 14px;
+    }
+
+    .footer-about-btn {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #38bdf8;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .footer-about-btn:hover {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: #38bdf8;
+    }
+
+    .footer-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 8px;
+    }
+
+    .contact-pill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .contact-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #0f172a;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid #1e293b;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .contact-pill:hover {
+      border-color: #38bdf8;
+      transform: translateX(4px);
+      background: #131e36;
+    }
+
+    .pill-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .phone-bg { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+    .wa-bg { background: linear-gradient(135deg, #16a34a, #15803d); }
+    .mail-bg { background: linear-gradient(135deg, #ea580c, #c2410c); }
+
+    .pill-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pill-label {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .pill-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .social-block {
+      margin-top: 4px;
+    }
+
+    .social-heading {
+      font-size: 11.5px;
+      color: #94a3b8;
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .social-icon-grid {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .social-pill-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 15px;
+      text-decoration: none;
+      border: 1px solid #334155;
+      transition: all 0.2s ease;
+    }
+
+    .social-pill-btn:hover {
+      transform: translateY(-3px);
+      background: #3b82f6;
+      border-color: #3b82f6;
+    }
+
+    .social-pill-btn.tiktok:hover { background: #000000; }
+    .social-pill-btn.wa:hover { background: #22c55e; }
+    .social-pill-btn.fb:hover { background: #1877f2; }
+    .social-pill-btn.yt:hover { background: #ff0000; }
+    .social-pill-btn.ig:hover { background: #e1306c; }
+
+    .footer-links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links-list a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    .footer-links-list a:hover {
+      color: #38bdf8;
+      padding-left: 3px;
+    }
+
+    .footer-bottom-bar {
+      background: #040813;
+      border-top: 1px solid #111827;
+      padding: 14px 20px;
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .footer-bottom-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom-inner {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+
+    .secure-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    /* -------------------------------------------------------------
+       ১২. পলিসি ও অ্যাকশন কন্টেন্ট
+    ------------------------------------------------------------- */
+    .about-full-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .about-slide-block {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .about-profile-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #3b82f6;
+      margin: 0 auto 10px auto;
+      display: block;
+    }
+
+    .about-full-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .policy-text-body {
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: #334155;
+      white-space: pre-line;
+      padding: 10px 0;
+    }
+
+    .success-box {
+      text-align: center;
+      padding: 16px;
+    }
+
+    .success-icon {
+      font-size: 48px;
+      color: var(--success-color);
+      margin-bottom: 8px;
+    }
+
+    /* লোডার ও টোস্ট */
+    .loading-state-box {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid #e2e8f0;
+      border-top-color: #3b82f6;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 10px auto;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .user-toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+      width: 90%;
+      max-width: 380px;
+    }
+
+    .user-toast {
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastPop 0.25s ease;
+      pointer-events: auto;
+    }
+
+    .user-toast.success { background: var(--success-color); }
+    .user-toast.error { background: var(--danger-color); }
+    .user-toast.info { background: var(--primary-color); }
+
+    @keyframes toastPop {
+      from { transform: translateY(12px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
 </head>
 <body onscroll="handleBodyScroll()">
 
-  <!-- ১. ডায়নামিক টপ মারকিউ নোটিশ বার -->
+  <!-- ১. ডায়নামিক টপ মারকিউ নোটিশ বার (কমলা কালার) -->
   <div class="top-bar" id="announcementBar">
     <div class="marquee-container">
       <span class="marquee-text" id="announcementText">🔥 বিশাল ডিসকাউন্ট অফার! যেকোনো পণ্যে ক্যাশ অন ডেলিভারি সুবিধা! স্টক সীমিত, আজই অর্ডার করুন।</span>
@@ -111,7 +1658,6 @@
 
   <!-- ৭. মূল ক্যাটালগ ও ক্যাটাগরি সেকশন -->
   <main class="container" id="mainContainer">
-    
     <!-- ক্যাটাগরি স্ক্রল বার -->
     <div class="section-title">
       <span><i class="fa-solid fa-layer-group text-primary"></i> ক্যাটাগরিসমূহ</span>
@@ -148,13 +1694,11 @@
 
   <!-- ৯. ভাসমান অ্যাকশন বাটনসমূহ (Floating WhatsApp & Cart) -->
   <div class="floating-buttons-group">
-    <!-- কার্ট বাটন -->
     <button class="floating-cart-btn" onclick="toggleCartCornerPopup(event)" title="কার্ট দেখুন" aria-label="Shopping Cart">
       <i class="fa-solid fa-cart-shopping"></i>
       <span class="cart-badge-count" id="cartCountFloat">0</span>
     </button>
     
-    <!-- হোয়াটসঅ্যাপ বাটন (ফন্ট অসাম + এসভিজি ব্যাকআপ) -->
     <a href="https://wa.me/8801840829940" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" id="floatingWhatsappBtn" title="WhatsApp এ যোগাযোগ করুন" aria-label="WhatsApp">
       <i class="fa-brands fa-whatsapp"></i>
     </a>
@@ -183,7 +1727,6 @@
         <h4 class="footer-title"><i class="fa-solid fa-headset text-primary"></i> যোগাযোগ ও হেল্পলাইন</h4>
         
         <div class="contact-pill-list">
-          <!-- ফোন -->
           <a href="tel:09658699887" class="contact-pill" id="footerPhoneCard">
             <div class="pill-icon phone-bg"><i class="fa-solid fa-phone"></i></div>
             <div class="pill-info">
@@ -192,7 +1735,6 @@
             </div>
           </a>
 
-          <!-- হোয়াটসঅ্যাপ -->
           <a href="https://wa.me/8801840829940" target="_blank" rel="noopener noreferrer" class="contact-pill" id="footerWhatsappCard">
             <div class="pill-icon wa-bg"><i class="fa-brands fa-whatsapp"></i></div>
             <div class="pill-info">
@@ -201,7 +1743,6 @@
             </div>
           </a>
 
-          <!-- ইমেইল -->
           <a href="mailto:nfonlinebd@gmail.com" class="contact-pill" id="footerEmailCard">
             <div class="pill-icon mail-bg"><i class="fa-solid fa-envelope"></i></div>
             <div class="pill-info">
@@ -211,12 +1752,9 @@
           </a>
         </div>
 
-        <!-- সোশ্যাল মিডিয়া আইকনসমূহ -->
         <div class="social-block">
           <span class="social-heading">আমাদের সাথে যুক্ত থাকুন:</span>
-          <div class="social-icon-grid" id="footerSocialIconsContainer">
-            <!-- ফায়ারবেস সেটিংস অনুযায়ী লোড হবে -->
-          </div>
+          <div class="social-icon-grid" id="footerSocialIconsContainer"></div>
         </div>
       </div>
 
@@ -261,7 +1799,1431 @@
   <!-- টোস্ট নোটিফিকেশন কন্টেইনার -->
   <div id="userToastContainer" class="user-toast-container"></div>
 
-  <!-- ইউজার প্যানেল স্ক্রিপ্ট -->
-  <script src="Min.js"></script>
+  <!-- ========================================================= -->
+  <!-- ইউজার প্যানেল স্ক্রিপ্ট (Min.js) -->
+  <!-- ========================================================= -->
+  <script>
+    /**
+     * =========================================================================
+     * NF SMART TECH - USER PANEL SCRIPT
+     * Sequence: 1. Telegram Notification (First) -> 2. Admin Panel / Firebase Save
+     * =========================================================================
+     */
+
+    // ১. আপনার টেলিগ্রাম বট টোকেন ও চ্যাট আইডি:
+    const DIRECT_TELEGRAM_CONFIG = {
+      botToken: "8645892108:AAGgjImkXpt0ZiayfRZhGN1ckLzX2Ujk4V4",
+      chatId: "8115404430",
+      enabled: true
+    };
+
+    // ২. FIREBASE CONFIGURATION
+    const firebaseConfig = {
+      apiKey: "AIzaSyDEL4Ztcm_C1frGm1NKKrbL-HAwS3j2J8I",
+      authDomain: "nr-world-34259.firebaseapp.com",
+      databaseURL: "https://nr-world-34259-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "nr-world-34259",
+      storageBucket: "nr-world-34259.firebasestorage.app",
+      messagingSenderId: "995564906610",
+      appId: "1:995564906610:web:476af48d626feb31243aeb"
+    };
+
+    // ৩. INITIALIZE FIREBASE SDK
+    let db = null;
+    try {
+      if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+      }
+      db = firebase.database();
+    } catch (err) {
+      console.error("Firebase init failed:", err);
+    }
+
+    // ৪. APPLICATION STATE
+    const AppState = {
+      products: {},
+      categories: {},
+      banners: {},
+      coupons: {},
+      deliveryRules: { insideDhaka: 60, outsideDhaka: 120, freeDeliveryThreshold: 0 },
+      telegramSettings: {},
+      settings: {},
+      policies: {},
+      cart: [],
+      activeFilterCatId: 'all',
+      appliedCoupon: null
+    };
+
+    // জেলা ও থানার ডেটা
+    const districtsData = {
+      "ঢাকা": ["ধানমন্ডি", "উত্তরা", "মিরপুর", "গুলশান", "তেজগাঁও", "রামপুরা", "সাভার", "কেরানীগঞ্জ", "ডেমরা", "ওয়ারী", "মতিঝিল", "মোহাম্মদপুর", "বাড্ডা"],
+      "কুমিল্লা": ["কুমিল্লা সদর", "লাকসাম", "চৌদ্দগ্রাম", "ব্রাহ্মণপাড়া", "বুড়িচং", "চান্দিনা", "মুরাদনগর", "হোমনা", "দেবীদ্বার"],
+      "চট্টগ্রাম": ["কোতোয়ালি", "পাহাড়তলী", "পাঁচলাইশ", "ডবলমুরিং", "হালিশহর", "সীতাকুণ্ড", "বোয়ালখালী", "রাউজান", "ফটিকছড়ি"],
+      "সিলেট": ["সিলেট সদর", "দক্ষিণ সুরমা", "জকিগঞ্জ", "গোলাপগঞ্জ", "বিয়ানীবাজার", "কানাইঘাট", "বালাগঞ্জ"],
+      "রাজশাহী": ["বোয়ালিয়া", "রাজপাড়া", "মতিহার", "শাহ মখদুম", "পবা", "চারঘাট", "বাঘা", "গোদাগাড়ী"],
+      "খুলনা": ["সোনাডাঙ্গা", "খালিশপুর", "দৌলতপুর", "কোতোয়ালি", "বটিয়াঘাট", "ডুমুরিয়া", "রূপসা"],
+      "বরিশাল": ["বরিশাল সদর", "বাবুগঞ্জ", "উজিরপুর", "মেহেন্দিগঞ্জ", "বাকেরগঞ্জ", "গৌরনদী"],
+      "রংপুর": ["রংপুর সদর", "মির্জাগঞ্জ", "পীরগঞ্জ", "বদরগঞ্জ", "তারাগঞ্জ", "গঙ্গাচড়া"],
+      "গাজীপুর": ["গাজীপুর সদর", "কালিয়াকৈর", "কাপাসিয়া", "শ্রীপুর", "কালীগঞ্জ", "টঙ্গী"],
+      "নারায়ণগঞ্জ": ["নারায়ণগঞ্জ সদর", "বন্দর", "আড়াইহাজার", "সোনারগাঁ", "রূপগঞ্জ"],
+      "বগুড়া": ["বগুড়া সদর", "শিবগঞ্জ", "শেরপুর", "ধুনট", "গাবতলী"],
+      "ময়মনসিংহ": ["ময়মনসিংহ সদর", "মুক্তাগাছা", "ফুলবাড়িয়া", "ত্রিশাল", "ভালুকা"]
+    };
+
+    function getThanasForDistrict(distName) {
+      return districtsData[distName] || ["সদর থানা"];
+    }
+
+    // ৫. FIREBASE REALTIME LISTENERS
+    function initFirebaseListeners() {
+      if (!db) {
+        showToast("ডাটাবেজ সংযোগ পাওয়া যায়নি!", "error");
+        return;
+      }
+
+      // ক্যাটাগরি
+      db.ref("categories").on("value", snapshot => {
+        AppState.categories = snapshot.val() || {};
+        renderCategoryBar();
+        renderSideMenuCategories();
+      });
+
+      // প্রোডাক্টস
+      db.ref("products").on("value", snapshot => {
+        AppState.products = snapshot.val() || {};
+        renderHomeProducts();
+        if (document.getElementById('allProductsContainer').style.display === 'block') {
+          filterCategory(AppState.activeFilterCatId);
+        }
+      });
+
+      // ব্যানার
+      db.ref("banners").on("value", snapshot => {
+        AppState.banners = snapshot.val() || {};
+        renderBanners();
+      });
+
+      // ডেলিভারি চার্জ
+      db.ref("deliveryRules").on("value", snapshot => {
+        const val = snapshot.val();
+        if (val) {
+          AppState.deliveryRules = {
+            insideDhaka: Number(val.insideDhaka) || 60,
+            outsideDhaka: Number(val.outsideDhaka) || 120,
+            freeDeliveryThreshold: Number(val.freeDeliveryThreshold) || 0
+          };
+        }
+        if (document.getElementById('checkoutSummaryBox')) {
+          recalculateCheckoutTotals();
+        }
+      });
+
+      // কুপন
+      db.ref("coupons").on("value", snapshot => {
+        AppState.coupons = snapshot.val() || {};
+      });
+
+      // টেলিগ্রাম সেটিংস (ফায়ারবেস ব্যাকআপ)
+      db.ref("telegramSettings").on("value", snapshot => {
+        AppState.telegramSettings = snapshot.val() || {};
+      });
+
+      // সাধারণ সেটিংস ও ফুটার ডেটা
+      db.ref("settings").on("value", snapshot => {
+        AppState.settings = snapshot.val() || {};
+        applyGeneralSettings();
+      });
+
+      // মারকিউ নোটিশ বার (যদি ডাটাবেজে থাকে তবে দেখাবে, না থাকলে ডিফল্ট রাখবে)
+      db.ref("notices/general").on("value", snapshot => {
+        if (snapshot.exists()) {
+          const notice = snapshot.val();
+          const bar = document.getElementById("announcementBar");
+          const txt = document.getElementById("announcementText");
+          if (notice && notice.active !== false && notice.content && notice.content.trim() !== "") {
+            txt.textContent = notice.content;
+            bar.style.display = "block";
+          } else {
+            bar.style.display = "none";
+          }
+        }
+      });
+
+      // পলিসি পেজ
+      db.ref("policies").on("value", snapshot => {
+        AppState.policies = snapshot.val() || {};
+      });
+
+      // কালার থিম
+      db.ref("theme").on("value", snapshot => {
+        const theme = snapshot.val();
+        if (theme) {
+          if (theme.primaryColor) document.documentElement.style.setProperty('--primary-color', theme.primaryColor);
+          if (theme.accentColor) document.documentElement.style.setProperty('--accent-color', theme.accentColor);
+          if (theme.bgColor) document.documentElement.style.setProperty('--bg-color', theme.bgColor);
+          if (theme.surfaceColor) document.documentElement.style.setProperty('--surface-color', theme.surfaceColor);
+        }
+      });
+    }
+
+    // ৬. ফুটার ও স্টোর ইনফরমেশন সিঙ্ক
+    function applyGeneralSettings() {
+      const s = AppState.settings || {};
+
+      if (s.storeName) {
+        document.title = `${s.storeName} - প্রিমিয়াম গ্যাজেট ও ই-কমার্স শপ`;
+        document.getElementById("storeBrandName").textContent = s.storeName;
+        document.getElementById("footerStoreName").textContent = s.storeName;
+        document.getElementById("footerCopyName").textContent = s.storeName;
+      }
+      if (s.logoUrl) {
+        document.getElementById("storeLogoImg").src = s.logoUrl;
+      }
+
+      if (s.footerText) {
+        document.getElementById("footerAboutText").textContent = s.footerText;
+      }
+
+      const phone = s.phone || "0965-8699887";
+      const cleanPhone = phone.replace(/[^0-9+]/g, '');
+      document.getElementById("footerPhoneVal").textContent = phone;
+      document.getElementById("footerPhoneCard").href = `tel:${cleanPhone}`;
+      const sidePhone = document.querySelector("#sideMenuPhone span");
+      if (sidePhone) sidePhone.textContent = phone;
+
+      const wa = s.whatsapp || "01840-829940";
+      const cleanWa = wa.replace(/[^0-9]/g, '');
+      document.getElementById("footerWhatsappVal").textContent = wa;
+      document.getElementById("footerWhatsappCard").href = `https://wa.me/${cleanWa}`;
+      document.getElementById("floatingWhatsappBtn").href = `https://wa.me/${cleanWa}`;
+
+      const email = s.email || "nfonlinebd@gmail.com";
+      document.getElementById("footerEmailVal").textContent = email;
+      document.getElementById("footerEmailCard").href = `mailto:${email}`;
+      const sideEmail = document.querySelector("#sideMenuEmail span");
+      if (sideEmail) sideEmail.textContent = email;
+
+      renderFooterSocials(s);
+    }
+
+    function renderFooterSocials(s) {
+      const container = document.getElementById("footerSocialIconsContainer");
+      const cleanWa = (s.whatsapp || "01840829940").replace(/[^0-9]/g, '');
+      
+      let html = '';
+      html += `<a href="https://wa.me/${cleanWa}" target="_blank" rel="noopener noreferrer" class="social-pill-btn wa" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>`;
+
+      if (s.tiktokUrl || !s.storeName) {
+        const tt = s.tiktokUrl || "https://tiktok.com/@nfsmarttech.com";
+        html += `<a href="${tt}" target="_blank" rel="noopener noreferrer" class="social-pill-btn tiktok" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>`;
+      }
+
+      if (s.facebookUrl) {
+        html += `<a href="${s.facebookUrl}" target="_blank" rel="noopener noreferrer" class="social-pill-btn fb" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>`;
+      }
+
+      if (s.youtubeUrl) {
+        html += `<a href="${s.youtubeUrl}" target="_blank" rel="noopener noreferrer" class="social-pill-btn yt" title="YouTube"><i class="fa-brands fa-youtube"></i></a>`;
+      }
+
+      if (s.instagramUrl) {
+        html += `<a href="${s.instagramUrl}" target="_blank" rel="noopener noreferrer" class="social-pill-btn ig" title="Instagram"><i class="fa-brands fa-instagram"></i></a>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    // ৭. ক্যাটাগরি ও মেনু বার
+    function renderCategoryBar() {
+      const scrollBox = document.getElementById("categoryScroll");
+      const cats = Object.values(AppState.categories).filter(c => c.active !== false);
+
+      let html = `
+        <div class="cat-card ${AppState.activeFilterCatId === 'all' ? 'active' : ''}" onclick="filterCategory('all')">
+          <div class="cat-icon-fallback">🌟</div>
+          <div class="cat-name">সব পণ্য</div>
+        </div>
+      `;
+
+      cats.forEach(c => {
+        const isSelected = AppState.activeFilterCatId === c.id;
+        html += `
+          <div class="cat-card ${isSelected ? 'active' : ''}" onclick="filterCategory('${c.id}')">
+            ${c.imageUrl 
+              ? `<img src="${escapeHTML(c.imageUrl)}" class="cat-thumb-img" alt="${escapeHTML(c.name)}" onerror="this.outerHTML='<div class=\\'cat-icon-fallback\\'>📦</div>'">` 
+              : `<div class="cat-icon-fallback">📦</div>`
+            }
+            <div class="cat-name">${escapeHTML(c.name)}</div>
+          </div>
+        `;
+      });
+
+      scrollBox.innerHTML = html;
+    }
+
+    function renderSideMenuCategories() {
+      const container = document.getElementById("sideMenuCategoriesList");
+      const cats = Object.values(AppState.categories).filter(c => c.active !== false);
+
+      let html = `<a href="javascript:void(0)" onclick="toggleSideMenu(); filterCategory('all');"><i class="fa-solid fa-layer-group"></i> সব পণ্য</a>`;
+      cats.forEach(c => {
+        html += `
+          <a href="javascript:void(0)" onclick="toggleSideMenu(); filterCategory('${c.id}');">
+            <i class="fa-solid fa-angle-right"></i> ${escapeHTML(c.name)}
+          </a>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    // ৮. ব্যানার স্লাইডার
+    let bannerTimer = null;
+    let currentBannerIdx = 0;
+
+    function renderBanners() {
+      const slider = document.getElementById("bannerSlider");
+      const dotsContainer = document.getElementById("sliderIndicators");
+      const banners = Object.values(AppState.banners)
+        .filter(b => b.active !== false)
+        .sort((a, b) => (Number(a.order) || 1) - (Number(b.order) || 1));
+
+      if (banners.length === 0) {
+        slider.innerHTML = `
+          <div class="banner-slide">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&auto=format&fit=crop&q=80" alt="Banner fallback">
+          </div>
+        `;
+        dotsContainer.innerHTML = '';
+        return;
+      }
+
+      slider.innerHTML = banners.map(b => `
+        <div class="banner-slide" onclick="handleBannerClick('${b.linkedProductId || ''}')">
+          <img src="${escapeHTML(b.imageUrl)}" alt="${escapeHTML(b.title || 'Banner')}" onerror="this.src='https://via.placeholder.com/1200x400?text=NF+Smart+Tech'">
+          ${b.title || b.subtitle ? `
+            <div class="banner-slide-overlay">
+              ${b.title ? `<div class="banner-slide-title">${escapeHTML(b.title)}</div>` : ''}
+              ${b.subtitle ? `<div class="banner-slide-subtitle">${escapeHTML(b.subtitle)}</div>` : ''}
+              ${b.ctaText ? `<span class="banner-cta-badge">${escapeHTML(b.ctaText)}</span>` : ''}
+            </div>
+          ` : ''}
+        </div>
+      `).join("");
+
+      dotsContainer.innerHTML = banners.map((_, i) => `<span class="slider-dot ${i === 0 ? 'active' : ''}"></span>`).join("");
+
+      clearInterval(bannerTimer);
+      currentBannerIdx = 0;
+      if (banners.length > 1) {
+        bannerTimer = setInterval(() => {
+          currentBannerIdx = (currentBannerIdx + 1) % banners.length;
+          slider.scrollTo({ left: slider.clientWidth * currentBannerIdx, behavior: 'smooth' });
+          document.querySelectorAll(".slider-dot").forEach((d, i) => {
+            d.classList.toggle("active", i === currentBannerIdx);
+          });
+        }, 5500);
+      }
+    }
+
+    function handleBannerClick(productId) {
+      if (productId && AppState.products[productId]) {
+        openProductDetails(productId);
+      }
+    }
+
+    // ৯. পণ্য তালিকা ও ফিল্টারিং
+    function getActiveProductsList() {
+      return Object.values(AppState.products).filter(p => p.active !== false);
+    }
+
+    function renderHomeProducts() {
+      const grid = document.getElementById("homeProductGrid");
+      const prods = getActiveProductsList();
+
+      if (prods.length === 0) {
+        grid.innerHTML = `<div class="loading-state-box"><p>কোনো পণ্য পাওয়া যায়নি।</p></div>`;
+        return;
+      }
+
+      grid.innerHTML = "";
+      prods.forEach(p => grid.appendChild(createProductCard(p)));
+    }
+
+    function createProductCard(product) {
+      const div = document.createElement("div");
+      div.className = "product-card";
+      div.onclick = () => openProductDetails(product.id);
+
+      const regPrice = Number(product.regularPrice) || 0;
+      const discPrice = Number(product.discountedPrice) || regPrice;
+      const savings = Math.max(0, regPrice - discPrice);
+      const isOutOfStock = product.stockStatus === 'out-of-stock' || Number(product.stockQuantity) <= 0;
+
+      const catName = AppState.categories[product.categoryId]?.name || "";
+      const mainImg = product.imageUrl || (product.images && product.images[0]) || 'https://via.placeholder.com/300?text=No+Image';
+
+      div.innerHTML = `
+        ${savings > 0 ? `<div class="discount-badge">Save ${savings}৳</div>` : ''}
+        ${isOutOfStock ? `<div class="stock-badge-out">Stock Out</div>` : ''}
+        <div class="product-card-img-wrap">
+          <img src="${escapeHTML(mainImg)}" alt="${escapeHTML(product.name)}" onerror="this.src='https://via.placeholder.com/300?text=Image+Not+Found'">
+        </div>
+        <div class="product-info">
+          ${catName ? `<div class="product-category-label">${escapeHTML(catName)}</div>` : ''}
+          <div class="product-title" title="${escapeHTML(product.name)}">${escapeHTML(product.name)}</div>
+          <div class="price-box">
+            <span class="product-price">${discPrice} টাকা</span>
+            ${savings > 0 ? `<span class="old-price">${regPrice}৳</span>` : ''}
+          </div>
+        </div>
+      `;
+      return div;
+    }
+
+    function filterCategory(catId) {
+      AppState.activeFilterCatId = catId;
+      const isAll = catId === 'all';
+
+      document.getElementById('mainContainer').style.display = isAll ? 'block' : 'none';
+      document.getElementById('bannerSection').style.display = isAll ? 'block' : 'none';
+      document.getElementById('allProductsContainer').style.display = isAll ? 'none' : 'block';
+
+      const catObj = AppState.categories[catId];
+      const catTitle = isAll ? 'সকল প্রোডাক্ট ক্যাটালগ' : (catObj ? catObj.name + ' ক্যাটাগরি' : 'ক্যাটাগরি পণ্য');
+      document.getElementById('pageCategoryTitle').textContent = catTitle;
+
+      const grid = document.getElementById('fullProductGrid');
+      grid.innerHTML = '';
+
+      const prods = getActiveProductsList().filter(p => isAll || p.categoryId === catId);
+      if (prods.length === 0) {
+        grid.innerHTML = `<div class="loading-state-box"><p>এই ক্যাটাগরিতে কোনো পণ্য পাওয়া যায়নি।</p></div>`;
+      } else {
+        prods.forEach(p => grid.appendChild(createProductCard(p)));
+      }
+
+      renderCategoryBar();
+      window.scrollTo(0, 0);
+    }
+
+    function showAllProductsPage() {
+      filterCategory('all');
+      document.getElementById('mainContainer').style.display = 'none';
+      document.getElementById('bannerSection').style.display = 'none';
+      document.getElementById('allProductsContainer').style.display = 'block';
+      document.getElementById('pageCategoryTitle').textContent = 'সকল প্রোডাক্ট ক্যাটালগ';
+
+      const grid = document.getElementById('fullProductGrid');
+      grid.innerHTML = '';
+      getActiveProductsList().forEach(p => grid.appendChild(createProductCard(p)));
+    }
+
+    function goToHome() {
+      AppState.activeFilterCatId = 'all';
+      document.getElementById('allProductsContainer').style.display = 'none';
+      document.getElementById('mainContainer').style.display = 'block';
+      document.getElementById('bannerSection').style.display = 'block';
+      renderCategoryBar();
+      window.scrollTo(0, 0);
+    }
+
+    // ১০. ভ্যারিয়েন্ট ও কালার এক্সট্রা প্রাইজ ক্যালকুলেশন
+    window.activeProductConfig = {
+      productId: null,
+      basePrice: 0,
+      selectedVariants: {},
+      totalCalculatedPrice: 0
+    };
+
+    function parseOptionExtraPrice(rawStr) {
+      if (typeof rawStr !== 'string') return { name: String(rawStr), extra: 0 };
+      const match = rawStr.match(/\(\s*\+\s*([0-9]+)\s*(?:tk|টাকা)?\s*\)/i);
+      if (match) {
+        const extra = Number(match[1]) || 0;
+        const cleanName = rawStr.replace(match[0], '').trim();
+        return { name: cleanName, extra: extra };
+      }
+      return { name: rawStr.trim(), extra: 0 };
+    }
+
+    function openProductDetails(productId) {
+      const p = AppState.products[productId];
+      if (!p) return;
+
+      const modalBody = document.getElementById('modalBody');
+      const allImgs = (p.images && p.images.length > 0) ? p.images : [p.imageUrl || 'https://via.placeholder.com/500'];
+
+      const imagesHtml = allImgs.map(img => `
+        <div class="detail-img-item">
+          <img src="${escapeHTML(img)}" alt="${escapeHTML(p.name)}" onerror="this.src='https://via.placeholder.com/500?text=Preview'">
+        </div>
+      `).join("");
+
+      const regPrice = Number(p.regularPrice) || 0;
+      const baseDiscountPrice = Number(p.discountedPrice) || regPrice;
+      const isOutOfStock = p.stockStatus === 'out-of-stock' || Number(p.stockQuantity) <= 0;
+
+      window.activeProductConfig = {
+        productId: p.id,
+        basePrice: baseDiscountPrice,
+        selectedVariants: {},
+        totalCalculatedPrice: baseDiscountPrice
+      };
+
+      let variantsHtml = '';
+      if (p.variants && typeof p.variants === 'object') {
+        Object.entries(p.variants).forEach(([grp, opts]) => {
+          if (Array.isArray(opts) && opts.length > 0) {
+            const firstParsed = parseOptionExtraPrice(opts[0]);
+            window.activeProductConfig.selectedVariants[grp] = firstParsed;
+
+            const chips = opts.map((opt, idx) => {
+              const parsed = parseOptionExtraPrice(opt);
+              const isSelected = idx === 0;
+              return `
+                <div class="variant-chip ${isSelected ? 'selected' : ''}" 
+                     onclick="selectVariantOption('${escapeHTML(grp)}', '${escapeHTML(parsed.name)}', ${parsed.extra}, this)">
+                  <span>${escapeHTML(parsed.name)}</span>
+                  ${parsed.extra > 0 ? `<span class="extra-price-tag">+৳${parsed.extra}</span>` : ''}
+                </div>
+              `;
+            }).join("");
+
+            variantsHtml += `
+              <div class="options-section">
+                <div class="option-group-title"><i class="fa-solid fa-sliders"></i> ${escapeHTML(grp)} নির্বাচন করুন:</div>
+                <div class="variant-options-row">${chips}</div>
+              </div>
+            `;
+          }
+        });
+      }
+
+      const relatedProds = getActiveProductsList().filter(it => it.categoryId === p.categoryId && it.id !== p.id);
+      const relatedHtml = relatedProds.slice(0, 8).map(rp => `
+        <div class="horizontal-card" onclick="openProductDetails('${rp.id}')">
+          <img src="${rp.imageUrl || (rp.images && rp.images[0]) || ''}" alt="${escapeHTML(rp.name)}">
+          <div class="horizontal-card-info">
+            <div style="font-size: 11px; font-weight: 600; height: 26px; overflow: hidden;">${escapeHTML(rp.name)}</div>
+            <div style="font-size: 12px; color: var(--accent-color); font-weight: bold; margin-top: 3px;">৳${rp.discountedPrice || rp.regularPrice}</div>
+          </div>
+        </div>
+      `).join("");
+
+      const waNum = (AppState.settings.whatsapp || '01840829940').replace(/[^0-9]/g, '');
+      const callNum = (AppState.settings.phone || '09658699887').replace(/[^0-9+]/g, '');
+
+      const actionButtons = !isOutOfStock ? `
+        <div class="action-buttons-grid">
+          <button class="action-btn btn-cart" onclick="addToCartConfigured('${p.id}')">
+            <i class="fa-solid fa-cart-plus"></i> কার্টে যোগ করুন
+          </button>
+          <button class="action-btn btn-order" onclick="openCheckoutSingle('${p.id}')">
+            <i class="fa-solid fa-bolt"></i> সরাসরি অর্ডার
+          </button>
+          <a href="https://wa.me/${waNum}?text=${encodeURIComponent(`আসসালামু আলাইকুম, আমি ${p.name} সম্পর্কে জানতে চাই।`)}" target="_blank" class="action-btn btn-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp
+          </a>
+          <a href="tel:${callNum}" class="action-btn btn-call">
+            <i class="fa-solid fa-phone"></i> কল করুন
+          </a>
+        </div>
+      ` : `<div style="background:#ef4444; color:white; padding:10px; text-align:center; font-weight:bold; border-radius:6px; margin:12px 0;">দুঃখিত, এই পণ্যটি বর্তমানে স্টক আউট রয়েছে!</div>`;
+
+      modalBody.innerHTML = `
+        <div class="detail-container-inner">
+          <div class="detail-image-slider">${imagesHtml}</div>
+          <h2 class="detail-title-under-image">${escapeHTML(p.name)}</h2>
+
+          <div class="detail-price-box">
+            <span class="detail-price" id="modalLivePrice">৳${baseDiscountPrice}</span>
+            ${regPrice > baseDiscountPrice ? `<span class="detail-old-price">৳${regPrice}</span>` : ''}
+            ${regPrice > baseDiscountPrice ? `<span class="save-badge">Save ৳${regPrice - baseDiscountPrice}</span>` : ''}
+          </div>
+
+          <div id="modalPriceBreakdown" class="price-breakdown-note d-none"></div>
+
+          ${variantsHtml}
+          ${actionButtons}
+
+          <div class="detail-description">
+            <h3><i class="fa-solid fa-file-lines text-primary"></i> পণ্যের বিবরণী</h3>
+            <p>${escapeHTML(p.description || 'এই পণ্যের বিস্তারিত বিবরণ শীঘ্রই যুক্ত করা হবে।')}</p>
+          </div>
+
+          ${relatedProds.length > 0 ? `
+            <div style="margin-top: 18px;">
+              <h3 style="font-size: 14px; margin-bottom: 8px; color: var(--primary-color);">সম্পর্কিত পণ্যসমূহ</h3>
+              <div class="horizontal-scroll-section">${relatedHtml}</div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+
+      document.getElementById('globalModal').style.display = 'flex';
+      updateLiveCalculatedPrice();
+      window.scrollTo(0, 0);
+    }
+
+    function selectVariantOption(groupName, optionName, extraPrice, element) {
+      const parent = element.parentElement;
+      parent.querySelectorAll('.variant-chip').forEach(c => c.classList.remove('selected'));
+      element.classList.add('selected');
+
+      window.activeProductConfig.selectedVariants[groupName] = {
+        name: optionName,
+        extra: Number(extraPrice) || 0
+      };
+
+      updateLiveCalculatedPrice();
+    }
+
+    function updateLiveCalculatedPrice() {
+      const cfg = window.activeProductConfig;
+      let totalExtra = 0;
+      const breakdownParts = [];
+
+      Object.entries(cfg.selectedVariants).forEach(([grp, item]) => {
+        if (item.extra > 0) {
+          totalExtra += item.extra;
+          breakdownParts.push(`${grp} (${item.name}): +৳${item.extra}`);
+        }
+      });
+
+      const finalPrice = cfg.basePrice + totalExtra;
+      cfg.totalCalculatedPrice = finalPrice;
+
+      const priceElem = document.getElementById("modalLivePrice");
+      if (priceElem) priceElem.textContent = `৳${finalPrice}`;
+
+      const noteElem = document.getElementById("modalPriceBreakdown");
+      if (noteElem) {
+        if (totalExtra > 0) {
+          noteElem.classList.remove("d-none");
+          noteElem.innerHTML = `<i class="fa-solid fa-circle-info"></i> মূল্য হিসাব: মূল ৳${cfg.basePrice} + ${breakdownParts.join(" + ")} = মোট <strong>৳${finalPrice}</strong>`;
+        } else {
+          noteElem.classList.add("d-none");
+        }
+      }
+    }
+
+    // ১১. কার্ট সিস্টেম
+    function addToCartConfigured(productId) {
+      const p = AppState.products[productId];
+      if (!p) return;
+
+      const isOutOfStock = p.stockStatus === 'out-of-stock' || Number(p.stockQuantity) <= 0;
+      if (isOutOfStock) {
+        showToast("দুঃখিত! এই পণ্যটি বর্তমানে স্টকে নেই।", "error");
+        return;
+      }
+
+      const cfg = window.activeProductConfig;
+      const selectedVariantsRecord = {};
+      Object.entries(cfg.selectedVariants).forEach(([k, val]) => {
+        selectedVariantsRecord[k] = val.extra > 0 ? `${val.name} (+৳${val.extra})` : val.name;
+      });
+
+      const variantKey = Object.entries(selectedVariantsRecord).map(([k, v]) => `${k}:${v}`).sort().join("|");
+      const cartItemKey = `${productId}_${variantKey}`;
+
+      const existing = AppState.cart.find(it => it.cartKey === cartItemKey);
+      const currentStock = Number(p.stockQuantity) || 999;
+
+      if (existing) {
+        if (existing.qty + 1 > currentStock) {
+          showToast("স্টকে থাকা পরিমাণের চেয়ে বেশি যোগ করা যাবে না!", "error");
+          return;
+        }
+        existing.qty += 1;
+      } else {
+        AppState.cart.push({
+          productId: p.id,
+          name: p.name,
+          price: cfg.totalCalculatedPrice,
+          basePrice: cfg.basePrice,
+          image: p.imageUrl || (p.images && p.images[0]) || '',
+          variants: selectedVariantsRecord,
+          cartKey: cartItemKey,
+          qty: 1
+        });
+      }
+
+      updateCartCounter();
+      showToast("পণ্যটি সফলভাবে কার্টে যুক্ত হয়েছে!", "success");
+    }
+
+    function updateCartCounter() {
+      const totalQty = AppState.cart.reduce((sum, it) => sum + it.qty, 0);
+      document.getElementById("cartCountFloat").textContent = totalQty;
+    }
+
+    function toggleCartCornerPopup(event) {
+      if (event) event.stopPropagation();
+      const pop = document.getElementById("cartCornerPopup");
+      pop.classList.toggle("active");
+      if (pop.classList.contains("active")) {
+        renderCartCorner();
+      }
+    }
+
+    function renderCartCorner() {
+      const listDiv = document.getElementById("cartCornerItemsList");
+      const summaryDiv = document.getElementById("cartCornerSummary");
+
+      if (AppState.cart.length === 0) {
+        listDiv.innerHTML = `<p style="text-align:center; padding:24px 0; color:#64748b; font-size:13px;">আপনার কার্ট বর্তমানে খালি।</p>`;
+        summaryDiv.innerHTML = '';
+        return;
+      }
+
+      let subtotal = 0;
+      listDiv.innerHTML = AppState.cart.map((item, idx) => {
+        subtotal += item.price * item.qty;
+        const vStr = Object.entries(item.variants || {}).map(([k, v]) => `${k}: ${v}`).join(", ");
+        return `
+          <div class="cart-item-row">
+            <img src="${item.image}" alt="${escapeHTML(item.name)}" onerror="this.src='https://via.placeholder.com/48'">
+            <div style="flex-grow: 1;">
+              <div style="font-size: 11.5px; font-weight: 700;">${escapeHTML(item.name)}</div>
+              ${vStr ? `<div style="font-size: 10px; color: #64748b;">${escapeHTML(vStr)}</div>` : ''}
+              <div style="font-size: 11.5px; color: var(--accent-color); font-weight: 800;">৳${item.price} &times; ${item.qty}</div>
+              <div class="qty-adjuster">
+                <button onclick="changeCartQty(${idx}, -1)">-</button>
+                <span style="font-size: 11px; font-weight: 700;">${item.qty}</span>
+                <button onclick="changeCartQty(${idx}, 1)">+</button>
+              </div>
+            </div>
+            <button class="cart-remove-btn" onclick="removeCartItem(${idx})" title="মুছে ফেলুন">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        `;
+      }).join("");
+
+      summaryDiv.innerHTML = `
+        <div style="font-size: 12.5px; border-top: 1px solid var(--border-color); padding-top: 8px; margin-bottom: 10px;">
+          <div style="display:flex; justify-content:space-between;">
+            <span>সাবটোটাল:</span> <strong>৳${subtotal}</strong>
+          </div>
+        </div>
+        <button class="submit-order-btn" onclick="openCheckoutMultiple()">
+          <i class="fa-solid fa-cart-arrow-down"></i> চেকআউট করুন
+        </button>
+      `;
+    }
+
+    function changeCartQty(index, delta) {
+      const item = AppState.cart[index];
+      if (!item) return;
+
+      const product = AppState.products[item.productId];
+      const stockLimit = product ? Number(product.stockQuantity) || 999 : 999;
+
+      item.qty += delta;
+      if (item.qty > stockLimit) {
+        item.qty = stockLimit;
+        showToast("সর্বোচ্চ স্টক পরিমাণ পৌঁছে গেছে!", "error");
+      }
+      if (item.qty <= 0) {
+        AppState.cart.splice(index, 1);
+      }
+
+      updateCartCounter();
+      renderCartCorner();
+    }
+
+    function removeCartItem(index) {
+      AppState.cart.splice(index, 1);
+      updateCartCounter();
+      renderCartCorner();
+    }
+
+    // ১২. চেকআউট স্ক্রিন
+    window.checkoutMode = 'cart';
+    window.singleCheckoutItem = null;
+
+    function openCheckoutSingle(productId) {
+      const p = AppState.products[productId];
+      if (!p) return;
+
+      const isOutOfStock = p.stockStatus === 'out-of-stock' || Number(p.stockQuantity) <= 0;
+      if (isOutOfStock) {
+        showToast("দুঃখিত! এই পণ্যটি বর্তমানে স্টকে নেই।", "error");
+        return;
+      }
+
+      const cfg = window.activeProductConfig;
+      const selectedVariantsRecord = {};
+      Object.entries(cfg.selectedVariants).forEach(([k, val]) => {
+        selectedVariantsRecord[k] = val.extra > 0 ? `${val.name} (+৳${val.extra})` : val.name;
+      });
+
+      window.checkoutMode = 'single';
+      window.singleCheckoutItem = {
+        productId: p.id,
+        name: p.name,
+        price: cfg.totalCalculatedPrice,
+        image: p.imageUrl || (p.images && p.images[0]) || '',
+        variants: selectedVariantsRecord,
+        qty: 1
+      };
+
+      document.getElementById('globalModal').style.display = 'flex';
+      renderCheckoutView();
+    }
+
+    function openCheckoutMultiple() {
+      if (AppState.cart.length === 0) {
+        showToast("কার্টে কোনো পণ্য নেই!", "error");
+        return;
+      }
+      document.getElementById("cartCornerPopup").classList.remove("active");
+      window.checkoutMode = 'cart';
+      document.getElementById('globalModal').style.display = 'flex';
+      renderCheckoutView();
+    }
+
+    function getDeliveryFee(district, subtotal) {
+      const rules = AppState.deliveryRules;
+      if (rules.freeDeliveryThreshold > 0 && subtotal >= rules.freeDeliveryThreshold) {
+        return 0;
+      }
+      return district === "ঢাকা" ? rules.insideDhaka : rules.outsideDhaka;
+    }
+
+    function renderCheckoutView() {
+      const items = window.checkoutMode === 'single' ? [window.singleCheckoutItem] : AppState.cart;
+      let subtotal = 0;
+
+      const itemsHtml = items.map((it, idx) => {
+        subtotal += it.price * it.qty;
+        const vStr = Object.entries(it.variants || {}).map(([k, v]) => `${k}: ${v}`).join(", ");
+        return `
+          <div class="cart-item-row">
+            <img src="${it.image}" alt="${escapeHTML(it.name)}" onerror="this.src='https://via.placeholder.com/48'">
+            <div style="flex-grow: 1;">
+              <div style="font-size: 12px; font-weight: 700;">${escapeHTML(it.name)}</div>
+              ${vStr ? `<div style="font-size: 10px; color: #64748b;">${escapeHTML(vStr)}</div>` : ''}
+              <div style="font-size: 12px; color: var(--accent-color); font-weight: 800;">৳${it.price} &times; ${it.qty} = ৳${it.price * it.qty}</div>
+              <div class="qty-adjuster">
+                <button onclick="updateCheckoutQty(${idx}, -1)">-</button>
+                <span style="font-size: 11px; font-weight: 700;">${it.qty}</span>
+                <button onclick="updateCheckoutQty(${idx}, 1)">+</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      const allDistricts = Object.keys(districtsData);
+      const districtOptions = `<option value="">জেলা নির্বাচন করুন</option>` + allDistricts.map(d => `<option value="${d}">${d}</option>`).join("");
+
+      const modalBody = document.getElementById("modalBody");
+      modalBody.innerHTML = `
+        <div class="detail-container-inner">
+          <h2 class="detail-title-under-image" style="border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+            <i class="fa-solid fa-truck-fast text-primary"></i> অর্ডার চেকআউট (ক্যাশ অন ডেলিভারি)
+          </h2>
+
+          <div style="background: #f8fafc; padding: 10px; border-radius: var(--radius-sm); margin-bottom: 12px; border: 1px solid var(--border-color);">
+            <div style="font-weight: 700; font-size: 12.5px; margin-bottom: 6px;">অর্ডারকৃত পণ্যসমূহ:</div>
+            <div>${itemsHtml}</div>
+          </div>
+
+          <div class="coupon-input-group">
+            <input type="text" id="couponCodeInput" placeholder="কুপন কোড (যদি থাকে)..." value="${AppState.appliedCoupon ? AppState.appliedCoupon.code : ''}">
+            <button class="btn-apply-coupon" onclick="applyCouponCode()">কুপন প্রয়োগ</button>
+          </div>
+          <div id="couponStatusMessage" style="font-size: 11.5px; margin-bottom: 6px;"></div>
+
+          <div class="checkout-summary" id="checkoutSummaryBox">
+            <div class="summary-row"><span>পণ্যের সাব-টোটাল:</span> <strong>৳<span id="chkSubtotal">${subtotal}</span></strong></div>
+            <div class="summary-row"><span>ডিসকাউন্ট (কুপন):</span> <strong>-৳<span id="chkDiscount">0</span></strong></div>
+            <div class="summary-row"><span>ডেলিভারি চার্জ:</span> <strong>৳<span id="chkDelivery">0</span></strong></div>
+            <div class="summary-row" style="font-size: 14.5px; font-weight: 800; color: var(--accent-color); border-top: 1px dashed var(--border-color); padding-top: 6px; margin-top: 4px;">
+              <span>সর্বমোট প্রদেয়:</span> <span>৳<span id="chkGrandTotal">${subtotal}</span></span>
+            </div>
+          </div>
+
+          <div class="delivery-notice">
+            <i class="fa-solid fa-box-open"></i> পণ্য হাতে পেয়ে চেক করে মূল্য পরিশোধ করুন। কোনো অগ্রিম পেমেন্টের প্রয়োজন নেই।
+          </div>
+
+          <div class="form-group">
+            <label>আপনার সম্পূর্ণ নাম <span style="color:var(--danger-color)">*</span></label>
+            <input type="text" id="custName" placeholder="যেমন: মো: আরিফুল ইসলাম" oninput="removeError(this)">
+          </div>
+
+          <div class="form-group">
+            <label>মোবাইল নম্বর (১১ ডিজিট) <span style="color:var(--danger-color)">*</span></label>
+            <input type="tel" id="custPhone" maxlength="11" placeholder="01XXXXXXXXX" oninput="removeError(this)">
+          </div>
+
+          <div class="form-group">
+            <label>জেলা নির্বাচন করুন <span style="color:var(--danger-color)">*</span></label>
+            <select id="custDistrict" onchange="handleDistrictChange(this.value); removeError(this)">
+              ${districtOptions}
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>থানা / উপজেলা <span style="color:var(--danger-color)">*</span></label>
+            <select id="custThana" onchange="removeError(this)">
+              <option value="">প্রথমে জেলা নির্বাচন করুন</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>গ্রাম বা বিস্তারিত ঠিকানা <span style="color:var(--danger-color)">*</span></label>
+            <input type="text" id="custAddress" placeholder="রোড নং, হাউজ নং, এলাকা বা গ্রামের নাম লিখুন" oninput="removeError(this)">
+          </div>
+
+          <div class="form-group">
+            <label>অর্ডার সংক্রান্ত নোট (ঐচ্ছিক)</label>
+            <input type="text" id="custNote" placeholder="ডেলিভারির জন্য কোনো বিশেষ নির্দেশনা থাকলে লিখুন">
+          </div>
+
+          <button class="submit-order-btn" id="submitOrderBtn" onclick="submitFinalOrder()">
+            <i class="fa-solid fa-circle-check"></i> অর্ডার কনফার্ম করুন
+          </button>
+        </div>
+      `;
+
+      recalculateCheckoutTotals();
+    }
+
+    function handleDistrictChange(dist) {
+      const thanaSelect = document.getElementById("custThana");
+      thanaSelect.innerHTML = `<option value="">থানা / উপজেলা নির্বাচন করুন</option>`;
+      if (dist) {
+        const thanas = getThanasForDistrict(dist);
+        thanas.forEach(t => {
+          thanaSelect.innerHTML += `<option value="${escapeHTML(t)}">${escapeHTML(t)}</option>`;
+        });
+      }
+      recalculateCheckoutTotals();
+    }
+
+    function recalculateCheckoutTotals() {
+      const items = window.checkoutMode === 'single' ? [window.singleCheckoutItem] : AppState.cart;
+      const subtotal = items.reduce((s, it) => s + (it.price * it.qty), 0);
+
+      const district = document.getElementById("custDistrict")?.value || "";
+      let deliveryFee = district ? getDeliveryFee(district, subtotal) : (AppState.deliveryRules.insideDhaka || 60);
+
+      let discount = 0;
+      if (AppState.appliedCoupon) {
+        const cpn = AppState.appliedCoupon;
+        if (subtotal >= (cpn.minOrder || 0)) {
+          discount = cpn.type === 'percentage' ? Math.round((subtotal * cpn.discount) / 100) : (Number(cpn.discount) || 0);
+        } else {
+          AppState.appliedCoupon = null;
+        }
+      }
+
+      const grandTotal = Math.max(0, subtotal - discount) + deliveryFee;
+
+      const subElem = document.getElementById("chkSubtotal");
+      const discElem = document.getElementById("chkDiscount");
+      const delElem = document.getElementById("chkDelivery");
+      const grandElem = document.getElementById("chkGrandTotal");
+
+      if (subElem) subElem.textContent = subtotal;
+      if (discElem) discElem.textContent = discount;
+      if (delElem) delElem.textContent = deliveryFee;
+      if (grandElem) grandElem.textContent = grandTotal;
+    }
+
+    function applyCouponCode() {
+      const input = document.getElementById("couponCodeInput");
+      const statusMsg = document.getElementById("couponStatusMessage");
+      const code = input.value.trim().toUpperCase();
+
+      if (!code) {
+        statusMsg.innerHTML = `<span style="color:var(--danger-color);">কুপন কোড লিখুন!</span>`;
+        return;
+      }
+
+      const coupon = AppState.coupons[code];
+      if (!coupon || coupon.active === false) {
+        statusMsg.innerHTML = `<span style="color:var(--danger-color);">অবৈধ বা মেয়াদোত্তীর্ণ কুপন!</span>`;
+        AppState.appliedCoupon = null;
+        recalculateCheckoutTotals();
+        return;
+      }
+
+      const items = window.checkoutMode === 'single' ? [window.singleCheckoutItem] : AppState.cart;
+      const subtotal = items.reduce((s, it) => s + (it.price * it.qty), 0);
+
+      if (coupon.minOrder && subtotal < coupon.minOrder) {
+        statusMsg.innerHTML = `<span style="color:var(--danger-color);">এই কুপনে ন্যূনতম ৳${coupon.minOrder} টাকার অর্ডার আবশ্যক।</span>`;
+        AppState.appliedCoupon = null;
+        recalculateCheckoutTotals();
+        return;
+      }
+
+      AppState.appliedCoupon = coupon;
+      statusMsg.innerHTML = `<span style="color:var(--success-color);"><i class="fa-solid fa-check"></i> কুপন কোড সফলভাবে যোগ হয়েছে!</span>`;
+      recalculateCheckoutTotals();
+    }
+
+    function updateCheckoutQty(index, delta) {
+      if (window.checkoutMode === 'single') {
+        window.singleCheckoutItem.qty += delta;
+        if (window.singleCheckoutItem.qty < 1) window.singleCheckoutItem.qty = 1;
+      } else {
+        AppState.cart[index].qty += delta;
+        if (AppState.cart[index].qty < 1) AppState.cart[index].qty = 1;
+        updateCartCounter();
+      }
+      renderCheckoutView();
+    }
+
+    function removeError(el) {
+      el.classList.remove('error-input');
+    }
+
+    // ১৩. টেলিগ্রাম এস্কেপ হেল্পার
+    function escapeTelegramHTML(text) {
+      if (!text) return "";
+      return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    // ১৪. টেলিগ্রামে নোটিফিকেশন পাঠানো
+    async function sendTelegramNotificationFirst(order) {
+      try {
+        let botToken = (DIRECT_TELEGRAM_CONFIG.botToken || "").trim();
+        let chatId = (DIRECT_TELEGRAM_CONFIG.chatId || "").trim();
+
+        if (!botToken || !chatId) {
+          const snap = await db.ref("telegramSettings").once("value");
+          const tg = snap.val() || AppState.telegramSettings || {};
+          botToken = (tg.botToken || "").trim();
+          chatId = (tg.chatId || "").trim();
+        }
+
+        if (!botToken || !chatId) {
+          console.error("টেলিগ্রাম বট টোকেন অথবা চ্যাট আইডি সেট করা নেই!");
+          return;
+        }
+
+        const itemsListHTML = (order.items || []).map((i, idx) => {
+          const v = Object.entries(i.variants || {}).map(([k, val]) => `${escapeTelegramHTML(k)}: ${escapeTelegramHTML(val)}`).join(", ");
+          return `📦 <b>পণ্য #${idx + 1}:</b> ${escapeTelegramHTML(i.name)}\n` +
+                 `${v ? `   🏷️ <i>ভ্যারিয়েন্ট:</i> ${v}\n` : ''}` +
+                 `   🔢 <i>পরিমাণ:</i> ${i.quantity} টি\n` +
+                 `   💵 <i>ইউনিট মূল্য:</i> ৳${i.price}\n` +
+                 `   💰 <i>মোট:</i> ৳${i.price * i.quantity}`;
+        }).join("\n\n");
+
+        const htmlMsg = 
+          `🚨 <b>নতুন ওয়েবসাইট অর্ডার এসেছে!</b>\n` +
+          `━━━━━━━━━━━━━━━━━━━━━\n` +
+          `🆔 <b>অর্ডার আইডি:</b> <code>#${escapeTelegramHTML(order.orderId)}</code>\n` +
+          `⏰ <b>তারিখ ও সময়:</b> ${new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' })}\n` +
+          `━━━━━━━━━━━━━━━━━━━━━\n\n` +
+          `👤 <b>গ্রাহকের বিস্তারিত তথ্য:</b>\n` +
+          `• <b>নাম:</b> ${escapeTelegramHTML(order.customer.name)}\n` +
+          `• <b>মোবাইল নম্বর:</b> <code>${escapeTelegramHTML(order.customer.phone)}</code>\n` +
+          `• <b>জেলা:</b> ${escapeTelegramHTML(order.customer.district)}\n` +
+          `• <b>থানা/উপজেলা:</b> ${escapeTelegramHTML(order.customer.thana)}\n` +
+          `• <b>সম্পূর্ণ ঠিকানা:</b> ${escapeTelegramHTML(order.customer.area)}\n` +
+          `${order.customer.note ? `• <b>কাস্টমার নোট:</b> <i>${escapeTelegramHTML(order.customer.note)}</i>\n` : ''}` +
+          `\n━━━━━━━━━━━━━━━━━━━━━\n` +
+          `🛍️ <b>অর্ডারকৃত পণ্যসমূহ:</b>\n\n` +
+          `${itemsListHTML}\n\n` +
+          `━━━━━━━━━━━━━━━━━━━━━\n` +
+          `💳 <b>হিসাব ও বিলের বিবরণী:</b>\n` +
+          `• সাবটোটাল: <b>৳${order.pricingSnapshot.subtotal}</b>\n` +
+          `• ডেলিভারি চার্জ: <b>৳${order.pricingSnapshot.deliveryFee}</b>\n` +
+          `${order.pricingSnapshot.discount > 0 ? `• কুপন ছাড় (${escapeTelegramHTML(order.pricingSnapshot.couponCode || 'Promo')}): <b>-৳${order.pricingSnapshot.discount}</b>\n` : ''}` +
+          `• পেমেন্ট মেথড: <b>ক্যাশ অন ডেলিভারি (COD)</b>\n` +
+          `💰 <b>সর্বমোট প্রদেয় বিল: ৳${order.pricingSnapshot.totalAmount}</b>\n` +
+          `━━━━━━━━━━━━━━━━━━━━━`;
+
+        const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: htmlMsg,
+            parse_mode: "HTML"
+          })
+        });
+
+        const data = await res.json();
+
+        if (!data.ok) {
+          console.warn("Telegram HTML mode rejected. Sending plain text fallback:", data.description);
+
+          const plainItems = (order.items || []).map((i, idx) => {
+            const v = Object.entries(i.variants || {}).map(([k, val]) => `${k}: ${val}`).join(", ");
+            return `#${idx + 1} ${i.name} ${v ? `(${v})` : ''} - ${i.quantity} টি x ৳${i.price} = ৳${i.price * i.quantity}`;
+          }).join("\n");
+
+          const plainMsg = 
+            `[নতুন ওয়েবসাইট অর্ডার]\n` +
+            `অর্ডার আইডি: #${order.orderId}\n` +
+            `তারিখ: ${new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' })}\n\n` +
+            `গ্রাহক: ${order.customer.name}\n` +
+            `ফোন: ${order.customer.phone}\n` +
+            `ঠিকানা: ${order.customer.area}, ${order.customer.thana}, ${order.customer.district}\n` +
+            `${order.customer.note ? `নোট: ${order.customer.note}\n` : ''}\n` +
+            `পণ্যসমূহ:\n${plainItems}\n\n` +
+            `সাবটোটাল: ৳${order.pricingSnapshot.subtotal}\n` +
+            `ডেলিভারি চার্জ: ৳${order.pricingSnapshot.deliveryFee}\n` +
+            `${order.pricingSnapshot.discount > 0 ? `ছাড়: -৳${order.pricingSnapshot.discount}\n` : ''}` +
+            `সর্বমোট বিল: ৳${order.pricingSnapshot.totalAmount} (COD)`;
+
+          await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              chat_id: chatId,
+              text: plainMsg
+            })
+          });
+        }
+      } catch (err) {
+        console.error("Telegram direct dispatch error:", err);
+      }
+    }
+
+    // ১৫. চূড়ান্ত অর্ডার সাবমিশন
+    async function submitFinalOrder() {
+      const nameInput = document.getElementById("custName");
+      const phoneInput = document.getElementById("custPhone");
+      const districtSelect = document.getElementById("custDistrict");
+      const thanaSelect = document.getElementById("custThana");
+      const addressInput = document.getElementById("custAddress");
+      const noteInput = document.getElementById("custNote");
+      const submitBtn = document.getElementById("submitOrderBtn");
+
+      let hasError = false;
+
+      if (!nameInput.value.trim()) { nameInput.classList.add("error-input"); hasError = true; }
+      else nameInput.classList.remove("error-input");
+
+      const phoneRegex = /^01[0-9]{9}$/;
+      if (!phoneRegex.test(phoneInput.value.trim())) { phoneInput.classList.add("error-input"); hasError = true; }
+      else phoneInput.classList.remove("error-input");
+
+      if (!districtSelect.value) { districtSelect.classList.add("error-input"); hasError = true; }
+      else districtSelect.classList.remove("error-input");
+
+      if (!thanaSelect.value) { thanaSelect.classList.add("error-input"); hasError = true; }
+      else thanaSelect.classList.remove("error-input");
+
+      if (!addressInput.value.trim()) { addressInput.classList.add("error-input"); hasError = true; }
+      else addressInput.classList.remove("error-input");
+
+      if (hasError) {
+        showToast("দয়া করে প্রয়োজনীয় সব তথ্য সঠিকভাবে লিখুন।", "error");
+        return;
+      }
+
+      const rawItems = window.checkoutMode === 'single' ? [window.singleCheckoutItem] : AppState.cart;
+      if (!rawItems || rawItems.length === 0) {
+        showToast("কার্টে কোনো পণ্য পাওয়া যায়নি!", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<div class="spinner" style="width:18px;height:18px;margin:0;"></div> অর্ডার প্রসেস হচ্ছে...`;
+
+      try {
+        let liveSubtotal = 0;
+        const finalOrderItems = [];
+
+        for (const item of rawItems) {
+          const pSnap = await db.ref(`products/${item.productId}`).once('value');
+          const liveP = pSnap.val();
+
+          if (!liveP || liveP.active === false) {
+            throw new Error(`পণ্য '${item.name}' বর্তমানে অনুপলব্ধ!`);
+          }
+
+          if (liveP.stockStatus === 'out-of-stock' || (Number(liveP.stockQuantity) < item.qty)) {
+            throw new Error(`পণ্য '${item.name}' পর্যাপ্ত স্টকে নেই!`);
+          }
+
+          const itemFinalUnitPrice = item.price;
+          liveSubtotal += itemFinalUnitPrice * item.qty;
+
+          finalOrderItems.push({
+            id: item.productId,
+            name: liveP.name,
+            price: itemFinalUnitPrice,
+            quantity: item.qty,
+            variants: item.variants || {},
+            imageUrl: liveP.imageUrl || (liveP.images && liveP.images[0]) || ''
+          });
+        }
+
+        const customerDistrict = districtSelect.value;
+        const liveDeliveryFee = getDeliveryFee(customerDistrict, liveSubtotal);
+
+        let liveDiscount = 0;
+        if (AppState.appliedCoupon) {
+          const cSnap = await db.ref(`coupons/${AppState.appliedCoupon.code}`).once('value');
+          const liveCoupon = cSnap.val();
+          if (liveCoupon && liveCoupon.active !== false && liveSubtotal >= (liveCoupon.minOrder || 0)) {
+            liveDiscount = liveCoupon.type === 'percentage' 
+              ? Math.round((liveSubtotal * liveCoupon.discount) / 100) 
+              : (Number(liveCoupon.discount) || 0);
+          }
+        }
+
+        const liveTotalAmount = Math.max(0, liveSubtotal - liveDiscount) + liveDeliveryFee;
+        const orderId = "NF" + Date.now().toString().slice(-6);
+
+        const orderPayload = {
+          orderId: orderId,
+          customer: {
+            name: nameInput.value.trim(),
+            phone: phoneInput.value.trim(),
+            district: customerDistrict,
+            thana: thanaSelect.value,
+            area: addressInput.value.trim(),
+            note: noteInput.value.trim()
+          },
+          items: finalOrderItems,
+          pricingSnapshot: {
+            subtotal: liveSubtotal,
+            deliveryFee: liveDeliveryFee,
+            discount: liveDiscount,
+            totalAmount: liveTotalAmount,
+            couponCode: AppState.appliedCoupon ? AppState.appliedCoupon.code : null
+          },
+          paymentMethod: "Cash on Delivery",
+          status: "Pending",
+          statusHistory: [
+            { status: "Pending", timestamp: Date.now(), updatedBy: "Customer (Web)" }
+          ],
+          createdAt: firebase.database.ServerValue.TIMESTAMP
+        };
+
+        // ১. আগে টেলিগ্রামে অর্ডার পাঠানো
+        await sendTelegramNotificationFirst(orderPayload);
+
+        // ২. ফায়ারবেস ডেটাবেজে সেভ
+        await db.ref(`orders/${orderId}`).set(orderPayload);
+
+        // কার্ট ক্লিয়ার
+        if (window.checkoutMode === 'cart') {
+          AppState.cart = [];
+          updateCartCounter();
+        }
+        window.singleCheckoutItem = null;
+        AppState.appliedCoupon = null;
+
+        renderOrderSuccessReceipt(orderPayload);
+
+      } catch (err) {
+        console.error("Order submit error:", err);
+        showToast(err.message || "অর্ডার সম্পন্ন হতে ব্যর্থ হয়েছে।", "error");
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="fa-solid fa-circle-check"></i> অর্ডার কনফার্ম করুন`;
+      }
+    }
+
+    function renderOrderSuccessReceipt(o) {
+      const modalBody = document.getElementById("modalBody");
+      const helpline = AppState.settings.phone || "0965-8699887";
+
+      modalBody.innerHTML = `
+        <div class="detail-container-inner">
+          <div class="success-box">
+            <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h2 style="color: var(--success-color); font-size: 18px; margin-bottom: 6px;">আপনার অর্ডারটি সফল হয়েছে!</h2>
+            <p style="font-size: 13px; color: #64748b; line-height: 1.5;">
+              অর্ডার আইডি: <strong>#${o.orderId}</strong>। আমাদের কাস্টমার প্রতিনিধি শীঘ্রই কল করে অর্ডারটি নিশ্চিত করবেন।
+            </p>
+          </div>
+
+          <div class="checkout-summary" style="font-size: 12.5px;">
+            <div style="font-weight: 700; margin-bottom: 8px; color: var(--primary-color);">অর্ডারের বিবরণ:</div>
+            <p><strong>নাম:</strong> ${escapeHTML(o.customer.name)}</p>
+            <p><strong>মোবাইল:</strong> ${escapeHTML(o.customer.phone)}</p>
+            <p><strong>ঠিকানা:</strong> ${escapeHTML(o.customer.area)}, ${escapeHTML(o.customer.thana)}, ${escapeHTML(o.customer.district)}</p>
+            <p><strong>পেমেন্ট:</strong> ক্যাশ অন ডেলিভারি (COD)</p>
+            <div style="border-top: 1px dashed var(--border-color); margin-top: 6px; padding-top: 6px; font-weight: 800; color: var(--accent-color);">
+              সর্বমোট প্রদেয়: ৳${o.pricingSnapshot.totalAmount}
+            </div>
+          </div>
+
+          <div style="background: #eef2f3; padding: 12px; border-radius: var(--radius-sm); text-align: center; margin-bottom: 14px; font-size: 13px; font-weight: 700; color: var(--primary-color);">
+            📞 হেল্পলাইন: <a href="tel:${helpline.replace(/[^0-9+]/g, '')}" style="color: var(--accent-color); text-decoration: none;">${helpline}</a>
+          </div>
+
+          <button class="submit-order-btn" onclick="closeModal(); goToHome();">
+            <i class="fa-solid fa-house"></i> হোমে ফিরে যান
+          </button>
+        </div>
+      `;
+    }
+
+    // ১৬. পলিসি ও ইনফো মোডাল
+    function openPolicyModal(policyType) {
+      const modalBody = document.getElementById("modalBody");
+      const titles = {
+        about: "আমাদের সম্পর্কে (About Us)",
+        shipping: "ডেলিভারি পলিসি (Shipping Policy)",
+        return: "রিটার্ন ও রিফান্ড নীতি (Return & Refund)",
+        terms: "টার্মস ও কন্ডিশনস (Terms & Conditions)",
+        privacy: "প্রাইভেসি পলিসি (Privacy Policy)"
+      };
+
+      const dynamicContent = AppState.policies[policyType];
+
+      let bodyHtml = '';
+      if (policyType === 'about' && !dynamicContent) {
+        bodyHtml = `
+          <div class="about-full-container">
+            <div class="about-slide-block">
+              <img src="https://i.ibb.co/BHK9kB7X/64797494668.png" alt="Founder" class="about-profile-img" onerror="this.src='https://via.placeholder.com/100'">
+              <div class="about-slide-title">Fahim Ahammed (Company CEO)</div>
+              <div class="about-slide-desc" style="font-size:12.5px;color:#64748b;">
+                NF Smart Tech-এর প্রতিষ্ঠাতা ও সিইও। আমরা গ্রাহকদের হাতে সেরা মানের প্রিমিয়াম গ্যাজেট ও ইলেকট্রনিক্স পণ্য বিশ্বস্ততার সাথে পৌঁছে দিতে প্রতিজ্ঞাবদ্ধ।
+              </div>
+            </div>
+            <div class="about-slide-block">
+              <img src="https://i.ibb.co/zTYS7fPk/69044013097.png" alt="Studio Room" class="about-full-img" onerror="this.src='https://via.placeholder.com/600x200'">
+              <div class="about-slide-title">আমাদের প্রোডাক্ট স্টুডিও</div>
+              <div class="about-slide-desc" style="font-size:12.5px;color:#64748b;">
+                আমাদের নিজস্ব শোকেসিং ও রিভিউ স্টুডিও রুম। যেখান থেকে প্রতিটি পণ্যের রিয়েল ভিডিও ও কোয়ালিটি নিশ্চিত করা হয়।
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        bodyHtml = `
+          <div class="policy-text-body">
+            ${escapeHTML(dynamicContent || 'এই পলিসি তথ্যটি অ্যাডমিন প্যানেল থেকে শীঘ্রই আপডেট করা হবে।')}
+          </div>
+        `;
+      }
+
+      modalBody.innerHTML = `
+        <div class="detail-container-inner">
+          <h2 class="detail-title-under-image" style="margin-bottom: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
+            ${titles[policyType] || 'তথ্য'}
+          </h2>
+          ${bodyHtml}
+          <button class="submit-order-btn" style="margin-top: 16px;" onclick="closeModal()">বন্ধ করুন</button>
+        </div>
+      `;
+
+      document.getElementById("globalModal").style.display = "flex";
+      window.scrollTo(0, 0);
+    }
+
+    // ১৭. সার্চ ও ইউজার ইন্টারঅ্যাকশন
+    function toggleSearchPopup(event) {
+      if (event) event.stopPropagation();
+      const box = document.getElementById("searchPopupBox");
+      box.classList.toggle("active");
+      if (box.classList.contains("active")) {
+        document.getElementById("searchInput").focus();
+      }
+    }
+
+    function clearSearchInput() {
+      document.getElementById("searchInput").value = "";
+      document.getElementById("searchSuggestionsList").innerHTML = "";
+      document.getElementById("searchInput").focus();
+    }
+
+    function handleSearchInput() {
+      const query = document.getElementById("searchInput").value.toLowerCase().trim();
+      const listDiv = document.getElementById("searchSuggestionsList");
+      listDiv.innerHTML = "";
+
+      if (!query) return;
+
+      const matched = getActiveProductsList().filter(p => p.name.toLowerCase().includes(query));
+
+      if (matched.length === 0) {
+        listDiv.innerHTML = `<div style="padding: 12px; text-align:center; font-size:12px; color:#64748b;">কোনো পণ্য পাওয়া যায়নি</div>`;
+        return;
+      }
+
+      matched.forEach(p => {
+        const row = document.createElement("div");
+        row.className = "suggestion-row";
+        row.innerHTML = `
+          <img src="${p.imageUrl || (p.images && p.images[0]) || ''}" alt="${escapeHTML(p.name)}" onerror="this.src='https://via.placeholder.com/40'">
+          <div>
+            <div style="font-weight: 600; font-size: 13px;">${escapeHTML(p.name)}</div>
+            <div style="color: var(--accent-color); font-weight: 700; font-size: 12px;">৳${p.discountedPrice || p.regularPrice}</div>
+          </div>
+        `;
+        row.onclick = () => {
+          document.getElementById("searchPopupBox").classList.remove("active");
+          openProductDetails(p.id);
+        };
+        listDiv.appendChild(row);
+      });
+    }
+
+    function toggleSideMenu(event) {
+      if (event) event.stopPropagation();
+      const menu = document.getElementById("sideMenu");
+      const overlay = document.getElementById("sideMenuOverlay");
+      menu.classList.toggle("active");
+      overlay.classList.toggle("active");
+    }
+
+    function handleBodyScroll() {
+      document.getElementById("searchPopupBox").classList.remove("active");
+      document.getElementById("cartCornerPopup").classList.remove("active");
+    }
+
+    window.onclick = function() {
+      document.getElementById("searchPopupBox").classList.remove("active");
+      document.getElementById("cartCornerPopup").classList.remove("active");
+      document.getElementById("sideMenu").classList.remove("active");
+      document.getElementById("sideMenuOverlay").classList.remove("active");
+    };
+
+    function closeModal() {
+      document.getElementById("globalModal").style.display = "none";
+    }
+
+    function escapeHTML(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function showToast(message, type = "info") {
+      const container = document.getElementById("userToastContainer");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      toast.className = `user-toast ${type}`;
+      toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> <span>${escapeHTML(message)}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => toast.remove(), 250);
+      }, 3200);
+    }
+
+    // ১৮. DOMContentLoaded
+    document.addEventListener("DOMContentLoaded", () => {
+      initFirebaseListeners();
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+    });
+  </script>
 </body>
 </html>
