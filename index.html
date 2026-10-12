@@ -49,7 +49,6 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* FIX: Do NOT set font-family globally on * */
     body, input, button, select, textarea {
       font-family: 'Plus Jakarta Sans', 'Hind Siliguri', sans-serif;
     }
@@ -68,9 +67,7 @@
     .text-accent { color: var(--accent-color) !important; }
     .d-none { display: none !important; }
 
-    /* -------------------------------------------------------------
-       ১. টপ অ্যানাউন্সমেন্ট মারকিউ বার (কমলা কালার)
-    ------------------------------------------------------------- */
+    /* ১. টপ অ্যানাউন্সমেন্ট মারকিউ বার */
     .top-bar {
       background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
       color: #ffffff;
@@ -99,9 +96,7 @@
       100% { transform: translate(-100%, 0); }
     }
 
-    /* -------------------------------------------------------------
-       ২. হেডার ও নেভিগেশন
-    ------------------------------------------------------------- */
+    /* ২. হেডার ও নেভিগেশন */
     header {
       background: var(--surface-color);
       padding: 10px 18px;
@@ -173,7 +168,7 @@
       border-radius: 2px;
     }
 
-    /* সার্চ পপআপ ড্রপডাউন */
+    /* সার্চ পপআপ */
     .search-popup-box {
       position: fixed;
       top: 68px;
@@ -262,9 +257,7 @@
       border-radius: 4px;
     }
 
-    /* -------------------------------------------------------------
-       ৩. সাইড ড্রয়ার মেনু
-    ------------------------------------------------------------- */
+    /* ৩. সাইড ড্রয়ার মেনু */
     .side-menu-overlay {
       position: fixed;
       inset: 0;
@@ -362,9 +355,7 @@
       gap: 6px;
     }
 
-    /* -------------------------------------------------------------
-       ৪. ব্যানার স্লাইডার
-    ------------------------------------------------------------- */
+    /* ৪. ব্যানার স্লাইডার */
     .banner-container {
       max-width: 1200px;
       width: 100%;
@@ -455,9 +446,7 @@
       .banner-slide-title { font-size: 22px; }
     }
 
-    /* -------------------------------------------------------------
-       ৫. ক্যাটাগরি ও প্রোডাক্ট ক্যাটালগ
-    ------------------------------------------------------------- */
+    /* ৫. ক্যাটাগরি ও প্রোডাক্ট ক্যাটালগ */
     .container {
       max-width: 1200px;
       width: 100%;
@@ -672,9 +661,7 @@
       color: var(--text-muted);
     }
 
-    /* -------------------------------------------------------------
-       ৬. ডায়নামিক ভ্যারিয়েন্ট ও কালার এক্সট্রা প্রাইজ স্টাইল
-    ------------------------------------------------------------- */
+    /* ৬. ভ্যারিয়েন্ট স্টাইল */
     .options-section {
       background: #f8fafc;
       border: 1px solid var(--border-color);
@@ -743,9 +730,7 @@
       border-left: 3px solid var(--accent-color);
     }
 
-    /* -------------------------------------------------------------
-       ৭. ফ্লোটিং অ্যাকশন বাটনসমূহ
-    ------------------------------------------------------------- */
+    /* ৭. ফ্লোটিং বাটনসমূহ */
     .floating-buttons-group {
       position: fixed;
       bottom: 24px;
@@ -813,9 +798,7 @@
       border: 2px solid #ffffff;
     }
 
-    /* -------------------------------------------------------------
-       ৮. কার্ট পপআপ
-    ------------------------------------------------------------- */
+    /* ৮. কার্ট পপআপ */
     .cart-corner-popup {
       display: none;
       position: fixed;
@@ -907,9 +890,7 @@
       padding: 4px;
     }
 
-    /* -------------------------------------------------------------
-       ৯. মোডাল উইন্ডো
-    ------------------------------------------------------------- */
+    /* ৯. মোডাল উইন্ডো */
     .modal {
       display: none;
       position: fixed;
@@ -1092,9 +1073,7 @@
 
     .horizontal-card-info { padding: 6px 8px; }
 
-    /* -------------------------------------------------------------
-       ১০. চেকআউট ফর্ম স্টাইল
-    ------------------------------------------------------------- */
+    /* ১০. চেকআউট ফর্ম স্টাইল */
     .checkout-summary {
       background: #f8fafc;
       padding: 12px;
@@ -1206,9 +1185,7 @@
       cursor: not-allowed;
     }
 
-    /* -------------------------------------------------------------
-       ১১. প্রিমিয়াম অ্যাডমিন-কন্ট্রোলড ফুটার
-    ------------------------------------------------------------- */
+    /* ১১. ফুটার */
     .app-footer {
       background: #080e1e;
       color: #e2e8f0;
@@ -1453,9 +1430,7 @@
       font-weight: 600;
     }
 
-    /* -------------------------------------------------------------
-       ১২. পলিসি ও অ্যাকশন কন্টেন্ট
-    ------------------------------------------------------------- */
+    /* ১২. পলিসি ও অ্যাকশন কন্টেন্ট */
     .about-full-container {
       display: flex;
       flex-direction: column;
@@ -1569,7 +1544,7 @@
 </head>
 <body onscroll="handleBodyScroll()">
 
-  <!-- ১. ডায়নামিক টপ মারকিউ নোটিশ বার (কমলা কালার) -->
+  <!-- ১. ডায়নামিক টপ মারকিউ নোটিশ বার -->
   <div class="top-bar" id="announcementBar">
     <div class="marquee-container">
       <span class="marquee-text" id="announcementText">🔥 বিশাল ডিসকাউন্ট অফার! যেকোনো পণ্যে ক্যাশ অন ডেলিভারি সুবিধা! স্টক সীমিত, আজই অর্ডার করুন।</span>
@@ -1618,9 +1593,7 @@
       <a href="javascript:void(0)" onclick="toggleSideMenu(); goToHome();"><i class="fa-solid fa-house"></i> হোম পেজ</a>
       
       <div class="side-menu-cat-title"><i class="fa-solid fa-shapes"></i> ক্যাটাগরি সমূহ</div>
-      <div id="sideMenuCategoriesList">
-        <!-- ফায়ারবেস থেকে ডায়নামিক লোড হবে -->
-      </div>
+      <div id="sideMenuCategoriesList"></div>
       
       <div class="side-menu-divider"></div>
       <div class="side-menu-cat-title"><i class="fa-solid fa-circle-info"></i> জরুরি লিংক</div>
@@ -1658,13 +1631,11 @@
 
   <!-- ৭. মূল ক্যাটালগ ও ক্যাটাগরি সেকশন -->
   <main class="container" id="mainContainer">
-    <!-- ক্যাটাগরি স্ক্রল বার -->
     <div class="section-title">
       <span><i class="fa-solid fa-layer-group text-primary"></i> ক্যাটাগরিসমূহ</span>
     </div>
     <div class="category-scroll" id="categoryScroll"></div>
 
-    <!-- জনপ্রিয় প্রোডাক্ট গ্রিড -->
     <div class="section-title">
       <span><i class="fa-solid fa-fire-flame-curved text-accent"></i> জনপ্রিয় প্রোডাক্টসমূহ</span>
       <span class="view-all-btn" onclick="showAllProductsPage()">সব দেখুন <i class="fa-solid fa-arrow-right"></i></span>
@@ -1686,13 +1657,13 @@
     <div class="product-grid" id="fullProductGrid"></div>
   </section>
 
-  <!-- ৮. গ্লোবাল মোডাল (প্রোডাক্ট ডিটেইলস, চেকআউট ও পলিসি) -->
+  <!-- ৮. গ্লোবাল মোডাল -->
   <div class="modal" id="globalModal" onclick="closeModal()">
     <button class="close-modal" onclick="closeModal()" aria-label="Close dialog">&times;</button>
     <div class="modal-content" id="modalBody" onclick="event.stopPropagation()"></div>
   </div>
 
-  <!-- ৯. ভাসমান অ্যাকশন বাটনসমূহ (Floating WhatsApp & Cart) -->
+  <!-- ৯. ভাসমান অ্যাকশন বাটনসমূহ -->
   <div class="floating-buttons-group">
     <button class="floating-cart-btn" onclick="toggleCartCornerPopup(event)" title="কার্ট দেখুন" aria-label="Shopping Cart">
       <i class="fa-solid fa-cart-shopping"></i>
@@ -1704,11 +1675,9 @@
     </a>
   </div>
 
-  <!-- ১০. প্রিমিয়াম ফুটার সেকশন (ফুল অ্যাডমিন কন্ট্রোলড) -->
+  <!-- ১০. প্রিমিয়াম ফুটার সেকশন -->
   <footer class="app-footer">
     <div class="footer-container">
-      
-      <!-- ফুটার কলাম ১: স্টোর পরিচিতি -->
       <div class="footer-card">
         <div class="footer-brand">
           <i class="fa-solid fa-cube footer-brand-icon"></i>
@@ -1722,7 +1691,6 @@
         </button>
       </div>
 
-      <!-- ফুটার কলাম ২: হেল্পলাইন ও কন্টাক্ট ইনফো -->
       <div class="footer-card">
         <h4 class="footer-title"><i class="fa-solid fa-headset text-primary"></i> যোগাযোগ ও হেল্পলাইন</h4>
         
@@ -1758,7 +1726,6 @@
         </div>
       </div>
 
-      <!-- ফুটার কলাম ৩: কাস্টমার কেয়ার ও পলিসি পেজ -->
       <div class="footer-card">
         <h4 class="footer-title"><i class="fa-solid fa-shield-halved text-accent"></i> গ্রাহক সেবা ও নীতি</h4>
         <ul class="footer-links-list">
@@ -1784,10 +1751,8 @@
           </li>
         </ul>
       </div>
-
     </div>
 
-    <!-- ফুটার কপিরাইট বার -->
     <div class="footer-bottom-bar">
       <div class="footer-bottom-inner">
         <span>&copy; <span id="currentYear">2026</span> <strong id="footerCopyName">NF Smart Tech</strong>. সর্বস্বত্ব সংরক্ষিত।</span>
@@ -1796,11 +1761,11 @@
     </div>
   </footer>
 
-  <!-- টোস্ট নোটিফিকেশন কন্টেইনার -->
+  <!-- টোস্ট নোটিফিকেশন -->
   <div id="userToastContainer" class="user-toast-container"></div>
 
   <!-- ========================================================= -->
-  <!-- ইউজার প্যানেল স্ক্রিপ্ট (Min.js) -->
+  <!-- ইউজার প্যানেল স্ক্রিপ্ট -->
   <!-- ========================================================= -->
   <script>
     /**
@@ -1810,7 +1775,7 @@
      * =========================================================================
      */
 
-    // ১. আপনার টেলিগ্রাম বট টোকেন ও চ্যাট আইডি:
+    // ১. আপনার টেলিগ্রাম বট টোকেন ও চ্যাট আইডি
     const DIRECT_TELEGRAM_CONFIG = {
       botToken: "8645892108:AAGgjImkXpt0ZiayfRZhGN1ckLzX2Ujk4V4",
       chatId: "8115404430",
@@ -1854,41 +1819,81 @@
       appliedCoupon: null
     };
 
-    // জেলা ও থানার ডেটা
-    const districtsData = {
-      "ঢাকা": ["ধানমন্ডি", "উত্তরা", "মিরপুর", "গুলশান", "তেজগাঁও", "রামপুরা", "সাভার", "কেরানীগঞ্জ", "ডেমরা", "ওয়ারী", "মতিঝিল", "মোহাম্মদপুর", "বাড্ডা"],
-      "কুমিল্লা": ["কুমিল্লা সদর", "লাকসাম", "চৌদ্দগ্রাম", "ব্রাহ্মণপাড়া", "বুড়িচং", "চান্দিনা", "মুরাদনগর", "হোমনা", "দেবীদ্বার"],
-      "চট্টগ্রাম": ["কোতোয়ালি", "পাহাড়তলী", "পাঁচলাইশ", "ডবলমুরিং", "হালিশহর", "সীতাকুণ্ড", "বোয়ালখালী", "রাউজান", "ফটিকছড়ি"],
-      "সিলেট": ["সিলেট সদর", "দক্ষিণ সুরমা", "জকিগঞ্জ", "গোলাপগঞ্জ", "বিয়ানীবাজার", "কানাইঘাট", "বালাগঞ্জ"],
-      "রাজশাহী": ["বোয়ালিয়া", "রাজপাড়া", "মতিহার", "শাহ মখদুম", "পবা", "চারঘাট", "বাঘা", "গোদাগাড়ী"],
-      "খুলনা": ["সোনাডাঙ্গা", "খালিশপুর", "দৌলতপুর", "কোতোয়ালি", "বটিয়াঘাট", "ডুমুরিয়া", "রূপসা"],
-      "বরিশাল": ["বরিশাল সদর", "বাবুগঞ্জ", "উজিরপুর", "মেহেন্দিগঞ্জ", "বাকেরগঞ্জ", "গৌরনদী"],
-      "রংপুর": ["রংপুর সদর", "মির্জাগঞ্জ", "পীরগঞ্জ", "বদরগঞ্জ", "তারাগঞ্জ", "গঙ্গাচড়া"],
-      "গাজীপুর": ["গাজীপুর সদর", "কালিয়াকৈর", "কাপাসিয়া", "শ্রীপুর", "কালীগঞ্জ", "টঙ্গী"],
-      "নারায়ণগঞ্জ": ["নারায়ণগঞ্জ সদর", "বন্দর", "আড়াইহাজার", "সোনারগাঁ", "রূপগঞ্জ"],
-      "বগুড়া": ["বগুড়া সদর", "শিবগঞ্জ", "শেরপুর", "ধুনট", "গাবতলী"],
-      "ময়মনসিংহ": ["ময়মনসিংহ সদর", "মুক্তাগাছা", "ফুলবাড়িয়া", "ত্রিশাল", "ভালুকা"]
-    };
+    // =========================================================================
+    // ৫. জেলা ও থানা ডেটা (Bd.json ফাইল থেকে স্বয়ংক্রিয়ভাবে লোড হবে)
+    // =========================================================================
+    let districtsData = {};
+
+    async function loadDistrictsFromBdJson() {
+      try {
+        const response = await fetch('./Bd.json');
+        if (!response.ok) throw new Error('Bd.json ফাইলটি পাওয়া যায়নি');
+        const data = await response.json();
+
+        const parsedDistricts = {};
+        if (data && Array.isArray(data.divisions)) {
+          data.divisions.forEach(division => {
+            if (division && Array.isArray(division.districts)) {
+              division.districts.forEach(dist => {
+                const distName = (dist.bnName || dist.name || '').trim();
+                if (!distName) return;
+
+                if (!parsedDistricts[distName]) {
+                  parsedDistricts[distName] = [];
+                }
+
+                if (Array.isArray(dist.upazilas)) {
+                  dist.upazilas.forEach(upz => {
+                    const upzName = (upz.bnName || upz.name || '').trim();
+                    if (upzName && !parsedDistricts[distName].includes(upzName)) {
+                      parsedDistricts[distName].push(upzName);
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+
+        if (Object.keys(parsedDistricts).length > 0) {
+          districtsData = parsedDistricts;
+          updateDistrictDropdownIfOpen();
+        }
+      } catch (error) {
+        console.warn("Bd.json লোড করতে সমস্যা হয়েছে (লোকাল ব্যাকআপ চালু রাখা হলো):", error);
+      }
+    }
 
     function getThanasForDistrict(distName) {
       return districtsData[distName] || ["সদর থানা"];
     }
 
-    // ৫. FIREBASE REALTIME LISTENERS
+    function updateDistrictDropdownIfOpen() {
+      const distSelect = document.getElementById("custDistrict");
+      if (distSelect) {
+        const currentVal = distSelect.value;
+        const allDistricts = Object.keys(districtsData);
+        distSelect.innerHTML = `<option value="">জেলা নির্বাচন করুন</option>` + 
+          allDistricts.map(d => `<option value="${escapeHTML(d)}">${escapeHTML(d)}</option>`).join("");
+        if (currentVal && districtsData[currentVal]) {
+          distSelect.value = currentVal;
+        }
+      }
+    }
+
+    // ৬. FIREBASE LISTENERS
     function initFirebaseListeners() {
       if (!db) {
         showToast("ডাটাবেজ সংযোগ পাওয়া যায়নি!", "error");
         return;
       }
 
-      // ক্যাটাগরি
       db.ref("categories").on("value", snapshot => {
         AppState.categories = snapshot.val() || {};
         renderCategoryBar();
         renderSideMenuCategories();
       });
 
-      // প্রোডাক্টস
       db.ref("products").on("value", snapshot => {
         AppState.products = snapshot.val() || {};
         renderHomeProducts();
@@ -1897,13 +1902,11 @@
         }
       });
 
-      // ব্যানার
       db.ref("banners").on("value", snapshot => {
         AppState.banners = snapshot.val() || {};
         renderBanners();
       });
 
-      // ডেলিভারি চার্জ
       db.ref("deliveryRules").on("value", snapshot => {
         const val = snapshot.val();
         if (val) {
@@ -1918,23 +1921,19 @@
         }
       });
 
-      // কুপন
       db.ref("coupons").on("value", snapshot => {
         AppState.coupons = snapshot.val() || {};
       });
 
-      // টেলিগ্রাম সেটিংস (ফায়ারবেস ব্যাকআপ)
       db.ref("telegramSettings").on("value", snapshot => {
         AppState.telegramSettings = snapshot.val() || {};
       });
 
-      // সাধারণ সেটিংস ও ফুটার ডেটা
       db.ref("settings").on("value", snapshot => {
         AppState.settings = snapshot.val() || {};
         applyGeneralSettings();
       });
 
-      // মারকিউ নোটিশ বার (যদি ডাটাবেজে থাকে তবে দেখাবে, না থাকলে ডিফল্ট রাখবে)
       db.ref("notices/general").on("value", snapshot => {
         if (snapshot.exists()) {
           const notice = snapshot.val();
@@ -1949,12 +1948,10 @@
         }
       });
 
-      // পলিসি পেজ
       db.ref("policies").on("value", snapshot => {
         AppState.policies = snapshot.val() || {};
       });
 
-      // কালার থিম
       db.ref("theme").on("value", snapshot => {
         const theme = snapshot.val();
         if (theme) {
@@ -1966,7 +1963,7 @@
       });
     }
 
-    // ৬. ফুটার ও স্টোর ইনফরমেশন সিঙ্ক
+    // ৭. ফুটার ও স্টোর সেটিংস সিঙ্ক
     function applyGeneralSettings() {
       const s = AppState.settings || {};
 
@@ -2033,7 +2030,7 @@
       container.innerHTML = html;
     }
 
-    // ৭. ক্যাটাগরি ও মেনু বার
+    // ৮. ক্যাটাগরি ও মেনু বার
     function renderCategoryBar() {
       const scrollBox = document.getElementById("categoryScroll");
       const cats = Object.values(AppState.categories).filter(c => c.active !== false);
@@ -2076,7 +2073,7 @@
       container.innerHTML = html;
     }
 
-    // ৮. ব্যানার স্লাইডার
+    // ৯. ব্যানার স্লাইডার
     let bannerTimer = null;
     let currentBannerIdx = 0;
 
@@ -2131,7 +2128,7 @@
       }
     }
 
-    // ৯. পণ্য তালিকা ও ফিল্টারিং
+    // ১০. পণ্য তালিকা ও ফিল্টারিং
     function getActiveProductsList() {
       return Object.values(AppState.products).filter(p => p.active !== false);
     }
@@ -2227,7 +2224,7 @@
       window.scrollTo(0, 0);
     }
 
-    // ১০. ভ্যারিয়েন্ট ও কালার এক্সট্রা প্রাইজ ক্যালকুলেশন
+    // ১১. ভ্যারিয়েন্ট ও কালার এক্সট্রা প্রাইজ ক্যালকুলেশন
     window.activeProductConfig = {
       productId: null,
       basePrice: 0,
@@ -2407,7 +2404,7 @@
       }
     }
 
-    // ১১. কার্ট সিস্টেম
+    // ১২. কার্ট সিস্টেম
     function addToCartConfigured(productId) {
       const p = AppState.products[productId];
       if (!p) return;
@@ -2539,7 +2536,7 @@
       renderCartCorner();
     }
 
-    // ১২. চেকআউট স্ক্রিন
+    // ১৩. চেকআউট স্ক্রিন
     window.checkoutMode = 'cart';
     window.singleCheckoutItem = null;
 
@@ -2617,7 +2614,7 @@
       }).join("");
 
       const allDistricts = Object.keys(districtsData);
-      const districtOptions = `<option value="">জেলা নির্বাচন করুন</option>` + allDistricts.map(d => `<option value="${d}">${d}</option>`).join("");
+      const districtOptions = `<option value="">জেলা নির্বাচন করুন</option>` + allDistricts.map(d => `<option value="${escapeHTML(d)}">${escapeHTML(d)}</option>`).join("");
 
       const modalBody = document.getElementById("modalBody");
       modalBody.innerHTML = `
@@ -2695,6 +2692,7 @@
 
     function handleDistrictChange(dist) {
       const thanaSelect = document.getElementById("custThana");
+      if (!thanaSelect) return;
       thanaSelect.innerHTML = `<option value="">থানা / উপজেলা নির্বাচন করুন</option>`;
       if (dist) {
         const thanas = getThanasForDistrict(dist);
@@ -2784,7 +2782,7 @@
       el.classList.remove('error-input');
     }
 
-    // ১৩. টেলিগ্রাম এস্কেপ হেল্পার
+    // ১৪. টেলিগ্রাম এস্কেপ হেল্পার
     function escapeTelegramHTML(text) {
       if (!text) return "";
       return String(text)
@@ -2793,7 +2791,7 @@
         .replace(/>/g, "&gt;");
     }
 
-    // ১৪. টেলিগ্রামে নোটিফিকেশন পাঠানো
+    // ১৫. টেলিগ্রামে অর্ডার নোটিফিকেশন (ডিরেক্ট ইমেজ লিঙ্ক বাইনারি আপলোড ফিক্সড)
     async function sendTelegramNotificationFirst(order) {
       try {
         let botToken = (DIRECT_TELEGRAM_CONFIG.botToken || "").trim();
@@ -2811,89 +2809,151 @@
           return;
         }
 
+        // কার্ড অনুযায়ী প্রতিটি পণ্যের সুন্দর তালিকা তৈরি
         const itemsListHTML = (order.items || []).map((i, idx) => {
-          const v = Object.entries(i.variants || {}).map(([k, val]) => `${escapeTelegramHTML(k)}: ${escapeTelegramHTML(val)}`).join(", ");
-          return `📦 <b>পণ্য #${idx + 1}:</b> ${escapeTelegramHTML(i.name)}\n` +
-                 `${v ? `   🏷️ <i>ভ্যারিয়েন্ট:</i> ${v}\n` : ''}` +
-                 `   🔢 <i>পরিমাণ:</i> ${i.quantity} টি\n` +
-                 `   💵 <i>ইউনিট মূল্য:</i> ৳${i.price}\n` +
-                 `   💰 <i>মোট:</i> ৳${i.price * i.quantity}`;
+          const v = Object.entries(i.variants || {}).map(([k, val]) => `${escapeTelegramHTML(k)}: <i>${escapeTelegramHTML(val)}</i>`).join(" | ");
+          return `📦 <b>${idx + 1}. ${escapeTelegramHTML(i.name)}</b>\n` +
+                 `${v ? `   🏷️ <i>অপশন:</i> ${v}\n` : ''}` +
+                 `   🔹 <i>পরিমাণ:</i> <b>${i.quantity} টি</b> × ৳${i.price} = <b>৳${i.price * i.quantity}</b>`;
         }).join("\n\n");
 
+        // চমৎকার কার্ড UI স্টাইল নোটিফিকেশন টেমপ্লেট
         const htmlMsg = 
-          `🚨 <b>নতুন ওয়েবসাইট অর্ডার এসেছে!</b>\n` +
-          `━━━━━━━━━━━━━━━━━━━━━\n` +
+          `🛍️ <b>═══「 নতুন অর্ডার নোটিফিকেশন 」═══</b>\n\n` +
           `🆔 <b>অর্ডার আইডি:</b> <code>#${escapeTelegramHTML(order.orderId)}</code>\n` +
-          `⏰ <b>তারিখ ও সময়:</b> ${new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' })}\n` +
-          `━━━━━━━━━━━━━━━━━━━━━\n\n` +
-          `👤 <b>গ্রাহকের বিস্তারিত তথ্য:</b>\n` +
-          `• <b>নাম:</b> ${escapeTelegramHTML(order.customer.name)}\n` +
-          `• <b>মোবাইল নম্বর:</b> <code>${escapeTelegramHTML(order.customer.phone)}</code>\n` +
+          `📅 <b>তারিখ ও সময়:</b> <i>${new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' })}</i>\n` +
+          `📊 <b>স্ট্যাটাস:</b> 🟡 <i>Pending (অপেক্ষারত)</i>\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `👤 <b>গ্রাহকের তথ্য:</b>\n` +
+          `• <b>নাম:</b> <b>${escapeTelegramHTML(order.customer.name)}</b>\n` +
+          `• <b>ফোন:</b> <code>${escapeTelegramHTML(order.customer.phone)}</code>\n` +
           `• <b>জেলা:</b> ${escapeTelegramHTML(order.customer.district)}\n` +
           `• <b>থানা/উপজেলা:</b> ${escapeTelegramHTML(order.customer.thana)}\n` +
-          `• <b>সম্পূর্ণ ঠিকানা:</b> ${escapeTelegramHTML(order.customer.area)}\n` +
-          `${order.customer.note ? `• <b>কাস্টমার নোট:</b> <i>${escapeTelegramHTML(order.customer.note)}</i>\n` : ''}` +
-          `\n━━━━━━━━━━━━━━━━━━━━━\n` +
-          `🛍️ <b>অর্ডারকৃত পণ্যসমূহ:</b>\n\n` +
-          `${itemsListHTML}\n\n` +
-          `━━━━━━━━━━━━━━━━━━━━━\n` +
-          `💳 <b>হিসাব ও বিলের বিবরণী:</b>\n` +
+          `• <b>ঠিকানা:</b> ${escapeTelegramHTML(order.customer.area)}\n` +
+          `${order.customer.note ? `• <b>নোট:</b> <i>${escapeTelegramHTML(order.customer.note)}</i>\n` : ''}` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `🛒 <b>অর্ডারকৃত পণ্যসমূহ:</b>\n\n` +
+          `${itemsListHTML}\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `💰 <b>বিল ও পেমেন্ট বিবরণী:</b>\n` +
           `• সাবটোটাল: <b>৳${order.pricingSnapshot.subtotal}</b>\n` +
           `• ডেলিভারি চার্জ: <b>৳${order.pricingSnapshot.deliveryFee}</b>\n` +
           `${order.pricingSnapshot.discount > 0 ? `• কুপন ছাড় (${escapeTelegramHTML(order.pricingSnapshot.couponCode || 'Promo')}): <b>-৳${order.pricingSnapshot.discount}</b>\n` : ''}` +
           `• পেমেন্ট মেথড: <b>ক্যাশ অন ডেলিভারি (COD)</b>\n` +
-          `💰 <b>সর্বমোট প্রদেয় বিল: ৳${order.pricingSnapshot.totalAmount}</b>\n` +
-          `━━━━━━━━━━━━━━━━━━━━━`;
+          `💵 <b>সর্বমোট প্রদেয় বিল: ৳${order.pricingSnapshot.totalAmount}</b>\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `✨ <i>NF Smart Tech Order Gateway</i>`;
 
-        const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: htmlMsg,
-            parse_mode: "HTML"
-          })
-        });
+        // অর্ডারের ১ম পণ্যের ছবি নেওয়া
+        let primaryPhotoUrl = null;
+        if (order.items && order.items.length > 0) {
+          primaryPhotoUrl = order.items[0].imageUrl || null;
+        }
 
-        const data = await res.json();
+        let sentSuccess = false;
 
-        if (!data.ok) {
-          console.warn("Telegram HTML mode rejected. Sending plain text fallback:", data.description);
+        // সরাসরি লিঙ্ক টেলিগ্রাম ব্লক/রিজেক্ট করলে যেন কোনো সমস্যা না হয়, তাই সরাসরি বাইনারি ব্লব (Binary Blob) হিসেবে টেলিগ্রামে আপলোড
+        if (primaryPhotoUrl && /^https?:\/\//i.test(primaryPhotoUrl)) {
+          try {
+            const imgFetch = await fetch(primaryPhotoUrl, { mode: 'cors' });
+            if (imgFetch.ok) {
+              const imgBlob = await imgFetch.blob();
+              const formData = new FormData();
+              formData.append('chat_id', chatId);
+              formData.append('photo', imgBlob, 'product.jpg');
+              formData.append('caption', htmlMsg);
+              formData.append('parse_mode', 'HTML');
 
-          const plainItems = (order.items || []).map((i, idx) => {
-            const v = Object.entries(i.variants || {}).map(([k, val]) => `${k}: ${val}`).join(", ");
-            return `#${idx + 1} ${i.name} ${v ? `(${v})` : ''} - ${i.quantity} টি x ৳${i.price} = ৳${i.price * i.quantity}`;
-          }).join("\n");
+              const photoRes = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                method: 'POST',
+                body: formData
+              });
+              const photoData = await photoRes.json();
+              if (photoData.ok) {
+                sentSuccess = true;
+              } else {
+                console.warn("Direct blob upload to Telegram failed:", photoData.description);
+              }
+            }
+          } catch (e) {
+            console.warn("CORS/Image fetch error, trying URL directly...", e);
+          }
 
-          const plainMsg = 
-            `[নতুন ওয়েবসাইট অর্ডার]\n` +
-            `অর্ডার আইডি: #${order.orderId}\n` +
-            `তারিখ: ${new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' })}\n\n` +
-            `গ্রাহক: ${order.customer.name}\n` +
-            `ফোন: ${order.customer.phone}\n` +
-            `ঠিকানা: ${order.customer.area}, ${order.customer.thana}, ${order.customer.district}\n` +
-            `${order.customer.note ? `নোট: ${order.customer.note}\n` : ''}\n` +
-            `পণ্যসমূহ:\n${plainItems}\n\n` +
-            `সাবটোটাল: ৳${order.pricingSnapshot.subtotal}\n` +
-            `ডেলিভারি চার্জ: ৳${order.pricingSnapshot.deliveryFee}\n` +
-            `${order.pricingSnapshot.discount > 0 ? `ছাড়: -৳${order.pricingSnapshot.discount}\n` : ''}` +
-            `সর্বমোট বিল: ৳${order.pricingSnapshot.totalAmount} (COD)`;
+          // যদি ব্রাউজার ফেচ ব্যর্থ হয় তবে সরাসরি ইমেজ লিঙ্ক দিয়ে চেষ্টা করা
+          if (!sentSuccess) {
+            try {
+              const photoRes = await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  chat_id: chatId,
+                  photo: primaryPhotoUrl,
+                  caption: htmlMsg,
+                  parse_mode: "HTML"
+                })
+              });
+              const photoData = await photoRes.json();
+              if (photoData.ok) {
+                sentSuccess = true;
+              }
+            } catch (urlErr) {
+              console.warn("Direct URL sendPhoto failed:", urlErr);
+            }
+          }
+        }
 
-          await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        // যদি ইমেজ সেন্ড না হয় তবে সুন্দর টেক্সট মেসেজ পাঠানো
+        if (!sentSuccess) {
+          const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               chat_id: chatId,
-              text: plainMsg
+              text: htmlMsg,
+              parse_mode: "HTML"
             })
           });
+
+          const data = await res.json();
+
+          if (!data.ok) {
+            console.warn("Telegram HTML mode rejected. Sending plain text fallback:", data.description);
+
+            const plainItems = (order.items || []).map((i, idx) => {
+              const v = Object.entries(i.variants || {}).map(([k, val]) => `${k}: ${val}`).join(", ");
+              return `#${idx + 1} ${i.name} ${v ? `(${v})` : ''} - ${i.quantity} টি x ৳${i.price} = ৳${i.price * i.quantity}`;
+            }).join("\n");
+
+            const plainMsg = 
+              `[নতুন ওয়েবসাইট অর্ডার]\n` +
+              `অর্ডার আইডি: #${order.orderId}\n` +
+              `তারিখ: ${new Date().toLocaleString('bn-BD', { timeZone: 'Asia/Dhaka' })}\n\n` +
+              `গ্রাহক: ${order.customer.name}\n` +
+              `ফোন: ${order.customer.phone}\n` +
+              `ঠিকানা: ${order.customer.area}, ${order.customer.thana}, ${order.customer.district}\n` +
+              `${order.customer.note ? `নোট: ${order.customer.note}\n` : ''}\n` +
+              `পণ্যসমূহ:\n${plainItems}\n\n` +
+              `সাবটোটাল: ৳${order.pricingSnapshot.subtotal}\n` +
+              `ডেলিভারি চার্জ: ৳${order.pricingSnapshot.deliveryFee}\n` +
+              `${order.pricingSnapshot.discount > 0 ? `ছাড়: -৳${order.pricingSnapshot.discount}\n` : ''}` +
+              `সর্বমোট বিল: ৳${order.pricingSnapshot.totalAmount} (COD)`;
+
+            await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                chat_id: chatId,
+                text: plainMsg
+              })
+            });
+          }
         }
       } catch (err) {
         console.error("Telegram direct dispatch error:", err);
       }
     }
 
-    // ১৫. চূড়ান্ত অর্ডার সাবমিশন
+    // ১৬. চূড়ান্ত অর্ডার সাবমিশন
     async function submitFinalOrder() {
       const nameInput = document.getElementById("custName");
       const phoneInput = document.getElementById("custPhone");
@@ -3007,13 +3067,9 @@
           createdAt: firebase.database.ServerValue.TIMESTAMP
         };
 
-        // ১. আগে টেলিগ্রামে অর্ডার পাঠানো
         await sendTelegramNotificationFirst(orderPayload);
-
-        // ২. ফায়ারবেস ডেটাবেজে সেভ
         await db.ref(`orders/${orderId}`).set(orderPayload);
 
-        // কার্ট ক্লিয়ার
         if (window.checkoutMode === 'cart') {
           AppState.cart = [];
           updateCartCounter();
@@ -3067,7 +3123,7 @@
       `;
     }
 
-    // ১৬. পলিসি ও ইনফো মোডাল
+    // ১৭. পলিসি ও ইনফো মোডাল
     function openPolicyModal(policyType) {
       const modalBody = document.getElementById("modalBody");
       const titles = {
@@ -3122,7 +3178,7 @@
       window.scrollTo(0, 0);
     }
 
-    // ১৭. সার্চ ও ইউজার ইন্টারঅ্যাকশন
+    // ১৮. সার্চ ও ইউজার ইন্টারঅ্যাকশন
     function toggleSearchPopup(event) {
       if (event) event.stopPropagation();
       const box = document.getElementById("searchPopupBox");
@@ -3219,8 +3275,9 @@
       }, 3200);
     }
 
-    // ১৮. DOMContentLoaded
+    // ১৯. DOMContentLoaded
     document.addEventListener("DOMContentLoaded", () => {
+      loadDistrictsFromBdJson();
       initFirebaseListeners();
       document.getElementById("currentYear").textContent = new Date().getFullYear();
     });
