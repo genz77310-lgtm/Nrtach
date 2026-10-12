@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NF Smart Tech</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome 6.5.2 Pro/Free Icon CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Custom User Panel Stylesheet -->
+  <link rel="stylesheet" href="Style.css">
+
+  <!-- Firebase App & Realtime Database SDKs (Compat CDN) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body onscroll="handleBodyScroll()">
+
+  <!-- ১. ডায়নামিক টপ মারকিউ নোটিশ বার -->
+  <div class="top-bar" id="announcementBar">
+    <div class="marquee-container">
+      <span class="marquee-text" id="announcementText">🔥 বিশাল ডিসকাউন্ট অফার! যেকোনো পণ্যে ক্যাশ অন ডেলিভারি সুবিধা! স্টক সীমিত, আজই অর্ডার করুন।</span>
+    </div>
+  </div>
+
+  <!-- ২. স্টিকি হেডার ও নেভিগেশন -->
+  <header>
+    <div class="logo-area" onclick="goToHome()">
+      <img id="storeLogoImg" src="https://i.ibb.co/q3sVNqqc/149770-removebg-preview.png" alt="NF Smart Tech Logo" onerror="this.src='https://via.placeholder.com/140x40?text=NF+Smart+Tech'">
+      <span id="storeBrandName">NF Smart Tech</span>
+    </div>
+
+    <div class="header-right-group">
+      <div class="search-area">
+        <button class="search-icon-btn" onclick="toggleSearchPopup(event)" title="পণ্য খুঁজুন" aria-label="Search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+      <button class="hamburger-btn" onclick="toggleSideMenu(event)" title="মেনু" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ৩. সার্চ পপআপ ড্রপডাউন -->
+  <div class="search-popup-box" id="searchPopupBox" onclick="event.stopPropagation()">
+    <div class="search-input-wrap">
+      <i class="fa-solid fa-magnifying-glass search-inner-icon"></i>
+      <input type="text" id="searchInput" placeholder="পণ্যের নাম লিখে সার্চ করুন..." oninput="handleSearchInput()">
+      <button type="button" class="search-clear-btn" onclick="clearSearchInput()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="search-suggestions-list" id="searchSuggestionsList"></div>
+  </div>
+
+  <!-- ৪. সাইড ড্রয়ার নেভিগেশন মেনু -->
+  <div class="side-menu-overlay" id="sideMenuOverlay" onclick="toggleSideMenu()"></div>
+  <aside class="side-menu" id="sideMenu" onclick="event.stopPropagation()">
+    <div class="side-menu-header">
+      <span><i class="fa-solid fa-bars-staggered text-primary"></i> মেনু অপশন</span>
+      <span class="side-menu-close" onclick="toggleSideMenu()">&times;</span>
+    </div>
+    <div class="side-menu-links">
+      <a href="javascript:void(0)" onclick="toggleSideMenu(); goToHome();"><i class="fa-solid fa-house"></i> হোম পেজ</a>
+      
+      <div class="side-menu-cat-title"><i class="fa-solid fa-shapes"></i> ক্যাটাগরি সমূহ</div>
+      <div id="sideMenuCategoriesList">
+        <!-- ফায়ারবেস থেকে ডায়নামিক লোড হবে -->
+      </div>
+      
+      <div class="side-menu-divider"></div>
+      <div class="side-menu-cat-title"><i class="fa-solid fa-circle-info"></i> জরুরি লিংক</div>
+      <a href="javascript:void(0)" onclick="toggleSideMenu(); openPolicyModal('about');"><i class="fa-solid fa-address-card"></i> আমাদের সম্পর্কে (About Us)</a>
+      <a href="javascript:void(0)" onclick="toggleSideMenu(); openPolicyModal('shipping');"><i class="fa-solid fa-truck-fast"></i> ডেলিভারি পলিসি</a>
+      <a href="javascript:void(0)" onclick="toggleSideMenu(); openPolicyModal('return');"><i class="fa-solid fa-rotate-left"></i> রিটার্ন ও রিফান্ড নীতি</a>
+      <a href="javascript:void(0)" onclick="toggleSideMenu(); openPolicyModal('terms');"><i class="fa-solid fa-file-contract"></i> টার্মস ও কন্ডিশনস</a>
+      <a href="javascript:void(0)" onclick="toggleSideMenu(); openPolicyModal('privacy');"><i class="fa-solid fa-shield-halved"></i> প্রাইভেসি পলিসি</a>
+    </div>
+    <div class="side-menu-footer">
+      <div id="sideMenuPhone"><i class="fa-solid fa-phone"></i> <span>0965-8699887</span></div>
+      <div id="sideMenuEmail"><i class="fa-solid fa-envelope"></i> <span>nfonlinebd@gmail.com</span></div>
+    </div>
+  </aside>
+
+  <!-- ৫. কার্ট কুইক ড্রয়ার পপআপ -->
+  <div class="cart-corner-popup" id="cartCornerPopup" onclick="event.stopPropagation()">
+    <div class="cart-corner-header">
+      <span><i class="fa-solid fa-bag-shopping text-accent"></i> শপিং কার্ট</span>
+      <span class="cart-corner-close" onclick="toggleCartCornerPopup()">&times;</span>
+    </div>
+    <div id="cartCornerItemsList"></div>
+    <div id="cartCornerSummary"></div>
+  </div>
+
+  <!-- ৬. ব্যানার স্লাইডার সেকশন -->
+  <section class="banner-container" id="bannerSection">
+    <div class="banner-slider" id="bannerSlider">
+      <div class="banner-slide">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&auto=format&fit=crop&q=80" alt="Banner fallback">
+      </div>
+    </div>
+    <div class="slider-indicators" id="sliderIndicators"></div>
+  </section>
+
+  <!-- ৭. মূল ক্যাটালগ ও ক্যাটাগরি সেকশন -->
+  <main class="container" id="mainContainer">
+    
+    <!-- ক্যাটাগরি স্ক্রল বার -->
+    <div class="section-title">
+      <span><i class="fa-solid fa-layer-group text-primary"></i> ক্যাটাগরিসমূহ</span>
+    </div>
+    <div class="category-scroll" id="categoryScroll"></div>
+
+    <!-- জনপ্রিয় প্রোডাক্ট গ্রিড -->
+    <div class="section-title">
+      <span><i class="fa-solid fa-fire-flame-curved text-accent"></i> জনপ্রিয় প্রোডাক্টসমূহ</span>
+      <span class="view-all-btn" onclick="showAllProductsPage()">সব দেখুন <i class="fa-solid fa-arrow-right"></i></span>
+    </div>
+    <div class="product-grid" id="homeProductGrid">
+      <div class="loading-state-box">
+        <div class="spinner"></div>
+        <p>পণ্য লোড হচ্ছে...</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ফিল্টারড পণ্য পেজ -->
+  <section class="container" id="allProductsContainer" style="display: none;">
+    <div class="section-title">
+      <span id="pageCategoryTitle">সকল প্রোডাক্ট</span>
+      <span class="view-all-btn" onclick="goToHome()"><i class="fa-solid fa-arrow-left"></i> হোমে ফিরে যান</span>
+    </div>
+    <div class="product-grid" id="fullProductGrid"></div>
+  </section>
+
+  <!-- ৮. গ্লোবাল মোডাল (প্রোডাক্ট ডিটেইলস, চেকআউট ও পলিসি) -->
+  <div class="modal" id="globalModal" onclick="closeModal()">
+    <button class="close-modal" onclick="closeModal()" aria-label="Close dialog">&times;</button>
+    <div class="modal-content" id="modalBody" onclick="event.stopPropagation()"></div>
+  </div>
+
+  <!-- ৯. ভাসমান অ্যাকশন বাটনসমূহ (Floating WhatsApp & Cart) -->
+  <div class="floating-buttons-group">
+    <!-- কার্ট বাটন -->
+    <button class="floating-cart-btn" onclick="toggleCartCornerPopup(event)" title="কার্ট দেখুন" aria-label="Shopping Cart">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span class="cart-badge-count" id="cartCountFloat">0</span>
+    </button>
+    
+    <!-- হোয়াটসঅ্যাপ বাটন (ফন্ট অসাম + এসভিজি ব্যাকআপ) -->
+    <a href="https://wa.me/8801840829940" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" id="floatingWhatsappBtn" title="WhatsApp এ যোগাযোগ করুন" aria-label="WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <!-- ১০. প্রিমিয়াম ফুটার সেকশন (ফুল অ্যাডমিন কন্ট্রোলড) -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      
+      <!-- ফুটার কলাম ১: স্টোর পরিচিতি -->
+      <div class="footer-card">
+        <div class="footer-brand">
+          <i class="fa-solid fa-cube footer-brand-icon"></i>
+          <h3 id="footerStoreName">NF Smart Tech</h3>
+        </div>
+        <p class="footer-desc" id="footerAboutText">
+          আমরা প্রিমিয়াম গ্যাজেট ও ইলেকট্রনিক্স পণ্য বিশ্বস্ততার সাথে সরবরাহ করে থাকি। গ্রাহক সন্তুষ্টিই আমাদের প্রধান লক্ষ্য।
+        </p>
+        <button class="footer-about-btn" onclick="openPolicyModal('about')">
+          <i class="fa-solid fa-circle-arrow-right"></i> আমাদের সম্পর্কে বিস্তারিত জানুন
+        </button>
+      </div>
+
+      <!-- ফুটার কলাম ২: হেল্পলাইন ও কন্টাক্ট ইনফো -->
+      <div class="footer-card">
+        <h4 class="footer-title"><i class="fa-solid fa-headset text-primary"></i> যোগাযোগ ও হেল্পলাইন</h4>
+        
+        <div class="contact-pill-list">
+          <!-- ফোন -->
+          <a href="tel:09658699887" class="contact-pill" id="footerPhoneCard">
+            <div class="pill-icon phone-bg"><i class="fa-solid fa-phone"></i></div>
+            <div class="pill-info">
+              <span class="pill-label">হেল্প লাইন (Call):</span>
+              <strong class="pill-val" id="footerPhoneVal">0965-8699887</strong>
+            </div>
+          </a>
+
+          <!-- হোয়াটসঅ্যাপ -->
+          <a href="https://wa.me/8801840829940" target="_blank" rel="noopener noreferrer" class="contact-pill" id="footerWhatsappCard">
+            <div class="pill-icon wa-bg"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="pill-info">
+              <span class="pill-label">WhatsApp সাপোর্ট:</span>
+              <strong class="pill-val" id="footerWhatsappVal">01840-829940</strong>
+            </div>
+          </a>
+
+          <!-- ইমেইল -->
+          <a href="mailto:nfonlinebd@gmail.com" class="contact-pill" id="footerEmailCard">
+            <div class="pill-icon mail-bg"><i class="fa-solid fa-envelope"></i></div>
+            <div class="pill-info">
+              <span class="pill-label">অফিসিয়াল ইমেইল:</span>
+              <strong class="pill-val" id="footerEmailVal">nfonlinebd@gmail.com</strong>
+            </div>
+          </a>
+        </div>
+
+        <!-- সোশ্যাল মিডিয়া আইকনসমূহ -->
+        <div class="social-block">
+          <span class="social-heading">আমাদের সাথে যুক্ত থাকুন:</span>
+          <div class="social-icon-grid" id="footerSocialIconsContainer">
+            <!-- ফায়ারবেস সেটিংস অনুযায়ী লোড হবে -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ফুটার কলাম ৩: কাস্টমার কেয়ার ও পলিসি পেজ -->
+      <div class="footer-card">
+        <h4 class="footer-title"><i class="fa-solid fa-shield-halved text-accent"></i> গ্রাহক সেবা ও নীতি</h4>
+        <ul class="footer-links-list">
+          <li>
+            <a href="javascript:void(0)" onclick="openPolicyModal('shipping')">
+              <i class="fa-solid fa-truck-ramp-box"></i> ডেলিভারি ও শিপিং পলিসি
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" onclick="openPolicyModal('return')">
+              <i class="fa-solid fa-rotate-left"></i> রিটার্ন ও রিফান্ড নীতি
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" onclick="openPolicyModal('terms')">
+              <i class="fa-solid fa-file-signature"></i> শর্তাবলী ও নীতিমালা (Terms)
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" onclick="openPolicyModal('privacy')">
+              <i class="fa-solid fa-user-shield"></i> গোপনীয়তা নীতি (Privacy Policy)
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- ফুটার কপিরাইট বার -->
+    <div class="footer-bottom-bar">
+      <div class="footer-bottom-inner">
+        <span>&copy; <span id="currentYear">2026</span> <strong id="footerCopyName">NF Smart Tech</strong>. সর্বস্বত্ব সংরক্ষিত।</span>
+        <span class="secure-badge"><i class="fa-solid fa-lock"></i> ১০০% নিরাপদ চেকআউট</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- টোস্ট নোটিফিকেশন কন্টেইনার -->
+  <div id="userToastContainer" class="user-toast-container"></div>
+
+  <!-- ইউজার প্যানেল স্ক্রিপ্ট -->
+  <script src="Min.js"></script>
+</body>
+</html>
