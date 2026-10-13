@@ -460,27 +460,6 @@
       border-radius: 999px;
     }
 
-    .slider-indicators {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .slider-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #cbd5e1;
-      transition: all 0.2s;
-    }
-
-    .slider-dot.active {
-      background: #3b82f6;
-      width: 18px;
-      border-radius: 6px;
-    }
-
     @media (min-width: 768px) {
       .banner-slide { height: 280px; }
       .banner-slide-title { font-size: 22px; }
@@ -1876,7 +1855,6 @@
         <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&auto=format&fit=crop&q=80" alt="Banner fallback">
       </div>
     </div>
-    <div class="slider-indicators" id="sliderIndicators"></div>
   </section>
 
   <!-- ৭. মূল ক্যাটালগ ও ক্যাটাগরি সেকশন -->
@@ -2057,8 +2035,8 @@
 
     // ১. আপনার টেলিগ্রাম বট টোকেন ও চ্যাট আইডি
     const DIRECT_TELEGRAM_CONFIG = {
-      botToken: "8645892108:AAGgjImkXpt0ZiayfRZhGN1ckLzX2Ujk4V4",
-      chatId: "8115404430",
+      botToken: "8850419511:AAE7jjEdj9OyhMQZJU0d9pWg9CIJctBLTd0",
+      chatId: "7603743816",
       enabled: true
     };
 
@@ -2618,7 +2596,6 @@
 
     function renderBanners() {
       const slider = document.getElementById("bannerSlider");
-      const dotsContainer = document.getElementById("sliderIndicators");
       const banners = Object.values(AppState.banners)
         .filter(b => b.active !== false)
         .sort((a, b) => (Number(a.order) || 1) - (Number(b.order) || 1));
@@ -2629,7 +2606,6 @@
             <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=1200&auto=format&fit=crop&q=80" alt="Banner fallback">
           </div>
         `;
-        dotsContainer.innerHTML = '';
         return;
       }
 
@@ -2646,17 +2622,12 @@
         </div>
       `).join("");
 
-      dotsContainer.innerHTML = banners.map((_, i) => `<span class="slider-dot ${i === 0 ? 'active' : ''}"></span>`).join("");
-
       clearInterval(bannerTimer);
       currentBannerIdx = 0;
       if (banners.length > 1) {
         bannerTimer = setInterval(() => {
           currentBannerIdx = (currentBannerIdx + 1) % banners.length;
           slider.scrollTo({ left: slider.clientWidth * currentBannerIdx, behavior: 'smooth' });
-          document.querySelectorAll(".slider-dot").forEach((d, i) => {
-            d.classList.toggle("active", i === currentBannerIdx);
-          });
         }, 5500);
       }
     }
@@ -2761,7 +2732,6 @@
 
     // =========================================================================
     // ১৩. ভ্যারিয়েন্ট ও ইমেজ পার্সিং হেল্পার (সহজ ও ফ্লেক্সিবল)
-    // ফরম্যাট সাপোর্ট: "Red (+100) [https://image.url]" অথবা অবজেক্ট {name, extra, imageUrl}
     // =========================================================================
     function parseVariantOption(raw) {
       if (!raw) return { name: "", extra: 0, image: "" };
@@ -2778,14 +2748,12 @@
       let extra = 0;
       let image = "";
 
-      // ইমেজ এক্সট্র্যাক্ট [URL]
       const imgMatch = rawStr.match(/\[(.*?)\]/);
       if (imgMatch) {
         image = imgMatch[1].trim();
         rawStr = rawStr.replace(imgMatch[0], '').trim();
       }
 
-      // এক্সট্রা প্রাইস এক্সট্র্যাক্ট (+50tk)
       const priceMatch = rawStr.match(/\(\s*\+\s*([0-9]+)\s*(?:tk|টাকা)?\s*\)/i);
       if (priceMatch) {
         extra = Number(priceMatch[1]) || 0;
@@ -2820,7 +2788,6 @@
       const baseDiscountPrice = Number(p.discountedPrice) || regPrice;
       const isOutOfStock = p.stockStatus === 'out-of-stock' || Number(p.stockQuantity) <= 0;
 
-      // সব ইমেজের লিস্ট তৈরি
       let allImages = [];
       if (Array.isArray(p.images) && p.images.length > 0) {
         allImages = [...p.images];
@@ -2838,7 +2805,6 @@
         activeImage: allImages[0]
       };
 
-      // ভ্যারিয়েন্ট সেকশন তৈরি
       let variantsHtml = '';
       if (p.variants && typeof p.variants === 'object') {
         Object.entries(p.variants).forEach(([grp, opts]) => {
@@ -2873,14 +2839,12 @@
         });
       }
 
-      // থাম্বনেইল গ্যালারি
       const thumbnailsHtml = allImages.map((img, idx) => `
         <div class="fs-thumbnail-item ${idx === 0 ? 'active' : ''}" onclick="switchProductMainImage('${escapeHTML(img)}', this)">
           <img src="${escapeHTML(img)}" alt="thumb">
         </div>
       `).join("");
 
-      // সম্পর্কিত পণ্যসমূহ (একই ক্যাটাগরির পণ্য, না পেলে অন্যান্য জনপ্রিয় পণ্য ব্যাকআপ হিসেবে থাকবে)
       let relatedProds = getActiveProductsList().filter(it => it.id !== p.id && it.categoryId && p.categoryId && String(it.categoryId) === String(p.categoryId));
       if (relatedProds.length === 0) {
         relatedProds = getActiveProductsList().filter(it => it.id !== p.id);
@@ -2999,7 +2963,6 @@
 
       window.activeProductConfig.selectedVariants[groupName] = parsedObj;
 
-      // প্রিভিউ বক্স আপডেট
       const previewBox = document.getElementById(`previewBox_${groupName}`);
       if (previewBox) {
         if (parsedObj.image) {
@@ -3012,7 +2975,6 @@
         }
       }
 
-      // যদি ভ্যারিয়েন্টের স্পেসিফিক ইমেজ থাকে তবে সেটি মূল ছবিতেও ফোকাস করা হবে
       if (parsedObj.image) {
         switchProductMainImage(parsedObj.image, null);
       }
@@ -3694,9 +3656,7 @@
           createdAt: firebase.database.ServerValue.TIMESTAMP
         };
 
-        // টেলিগ্রাম নোটিফিকেশন আগে পাঠানো হবে
         await sendTelegramNotificationFirst(orderPayload);
-        // এরপর ফায়ারবেজে সেভ হবে
         await db.ref(`orders/${orderId}`).set(orderPayload);
 
         if (window.checkoutMode === 'cart') {
@@ -3907,12 +3867,8 @@
 
     // ২২. DOMContentLoaded
     document.addEventListener("DOMContentLoaded", () => {
-      // ডিফল্ট হিস্ট্রি স্টেট ইনিশিয়ালাইজ
       history.replaceState({ page: 'home' }, "", window.location.pathname);
-
-      // ভাষা ইনিশিয়ালাইজ (ডিফল্ট: English)
       switchLanguage(AppState.lang);
-
       loadDistrictsFromBdJson();
       initFirebaseListeners();
       document.getElementById("currentYear").textContent = new Date().getFullYear();
